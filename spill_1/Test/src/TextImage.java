@@ -57,7 +57,7 @@ public class TextImage {
 
     public static void main(String[] args) {
         try{
-            BufferedImage bi = make("package main", "import 'fmt'", "func main(){", "fmt.Println('Hello World!')" , "}");
+            BufferedImage bi = make("package main", "import \"fmt\"", " ", "func main(){", "\t\t\t\tfmt.Println(\"Hello World!\")" , "}");
             File outputfile = new File("testtest.png");
             ImageIO.write(bi, "png", outputfile);
         } catch(Exception e){
