@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Skjermbilde 2020-01-23 kl. 19.50.09.png" type="Texture" id=1]
+
+[node name="Sprite" type="Sprite"]
+position = Vector2( 5595.82, 6483.97 )
+texture = ExtResource( 1 )
+offset = Vector2( 50, 50 )
+vframes = 4
+hframes = 4
+
+[node name="Skjermbilde 2020-01-23 kl 195009" type="Sprite" parent="."]
+position = Vector2( -5414.48, -6369.9 )
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
