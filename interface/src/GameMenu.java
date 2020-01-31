@@ -65,6 +65,20 @@ public class GameMenu {
         // Burde pathen lagres til en config fil for hver gang, eller når den gamel pathen ikke matcher en ny en?
         // Evt. Når pathen ikke matcher, bruk JFileChooser og be brukeren navigere til riktig mappe
         //TODO: Implement path finding of applications
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (isWindows(OS)) {
+            // Launch .exe
+            System.out.println("This is Windows");
+        } else if (isMac(OS)) {
+            // Launch .app
+            System.out.println("This is Mac");
+        } else if (isUnix(OS)) {
+            // Launch whatever Unix uses
+            System.out.println("This is Unix or Linux");
+        } else {
+            System.out.println("OS not supported.");
+        }
+
         String path;
 
         path = new File("").getAbsolutePath();
@@ -85,6 +99,17 @@ public class GameMenu {
     public void openEditor(String title) {
         new GameEditor(title, frame);
     }
+
+    private boolean isWindows(String OS) {
+        return (OS.contains("win"));
+    }
+    private boolean isMac(String OS) {
+        return (OS.contains("mac"));
+    }
+    private boolean isUnix(String OS) {
+        return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
+    }
+
 
     public static void main(String[] args) {
         new GameMenu();
