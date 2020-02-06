@@ -14,13 +14,19 @@ public class GameEditor extends JFrame {
     private JButton saveButton;
     private JButton loadButton;
     private Path lastOpened;
+    private int width = 600;
+    private int height = 400;
 
     public GameEditor(String title, JFrame parent) {
         super(title);
         this.parent = parent;
-        setMinimumSize(new Dimension(600, 400));
+        init();
+    }
 
-        add(panel = new JPanel());
+    private void init() {
+        setMinimumSize(new Dimension(width, height));
+
+        this.add(panel = new JPanel());
         inputField = new JTextArea();
         inputField.setLineWrap(true);
 
@@ -84,6 +90,7 @@ public class GameEditor extends JFrame {
         BufferedReader reader = new BufferedReader(fileReader);
         String line = null;
         StringBuilder sb = new StringBuilder();
+        // If it find a new line, it appends and sets the area text to the final result.
         while((line = reader.readLine()) != null) {
             sb.append(line);
         }

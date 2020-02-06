@@ -33,13 +33,11 @@ public class GameMenu {
         launchEditPanel = new JPanel();
         launchEditPanel.setLayout(new FlowLayout());
 
-        JButton launchGame1 = new JButton("Launch game 1");
-        //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
-        launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest.app"));
-        System.out.println(findGamePath());
-        gameLaunchers.add(launchGame1);
-
-        launchGamePanel.add(launchGame1);
+        try {
+            addGameLaunchers(launchGamePanel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         JButton launchEditor1 = new JButton("Launch editor 1");
         launchEditor1.addActionListener(e -> openEditor("Editor 1"));
@@ -49,8 +47,9 @@ public class GameMenu {
         launchEditor2.addActionListener(e -> openEditor("Editor 2"));
         gameEditors.add(launchEditor2);
 
-        launchEditPanel.add(launchEditor1);
-        launchEditPanel.add(launchEditor2);
+        for(JButton b : gameEditors) {
+            launchEditPanel.add(b);
+        }
 
         containerPanel.add(launchGamePanel, BorderLayout.CENTER);
         containerPanel.add(launchEditPanel, BorderLayout.SOUTH);
@@ -61,23 +60,63 @@ public class GameMenu {
         frame.setVisible(true);
     }
 
+    private void addGameLaunchers(JPanel panel) throws Exception {
+        //TODO: Lettere å legge til flere games?
+        JButton launchGame1 = new JButton("Launch game 1");
+        // Retrieve the operating system name to open the right executable.
+        String os = getOSName();
+        if (os != null) {
+            // Find and open the right file depending on the operating system, when you click the launching button.
+            if(os.equals(Constants.WINDOWS)) {
+                //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
+                //TODO: Flytte hver executable inn i en egen mappe, for hver os
+                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest.exe"));
+                System.out.println(findGamePath());
+
+            } else if(os.equals(Constants.MAC)) {
+                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest.app"));
+                System.out.println(findGamePath());
+
+            } else if(os.equals(Constants.UNIX)) {
+                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest"));
+                System.out.println(findGamePath());
+
+            }
+        }
+        // Add the button to the list of launchers, and to the panel.
+        gameLaunchers.add(launchGame1);
+
+        for(JButton b : gameLaunchers) {
+            panel.add(b);
+        }
+    }
+
+    /**
+     *
+     * @return operating system name as a string, or null if the os is not recognized
+     */
+    private String getOSName() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (isWindows(OS)) {
+            return Constants.WINDOWS;
+
+        } else if (isMac(OS)) {
+            return Constants.MAC;
+
+        } else if (isUnix(OS)) {
+            return Constants.UNIX;
+
+        } else {
+            System.out.println("OS not supported.");
+            return null;
+        }
+
+    }
+
     private String findGamePath() {
         // Burde pathen lagres til en config fil for hver gang, eller når den gamel pathen ikke matcher en ny en?
         // Evt. Når pathen ikke matcher, bruk JFileChooser og be brukeren navigere til riktig mappe
         //TODO: Implement path finding of applications
-        String OS = System.getProperty("os.name").toLowerCase();
-        if (isWindows(OS)) {
-            // Launch .exe
-            System.out.println("This is Windows");
-        } else if (isMac(OS)) {
-            // Launch .app
-            System.out.println("This is Mac");
-        } else if (isUnix(OS)) {
-            // Launch whatever Unix uses
-            System.out.println("This is Unix or Linux");
-        } else {
-            System.out.println("OS not supported.");
-        }
 
         String path;
 
