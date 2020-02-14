@@ -110,17 +110,17 @@ public class GameEditor extends JFrame {
         properties = new Properties();
         String prefix = "resources/Messages_";
         String suffix = ".properties";
-        FileInputStream language = null;
+        Reader language = null;
 
         switch(chosenLanguage) {
 
             case Constants.NORWEGIAN:
-                language = new FileInputStream(prefix + "NO_bokmaal" + suffix);
+                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
                 properties.load(language);
                 break;
 
             default:
-                language = new FileInputStream(prefix + "en_UK_standard" + suffix);
+                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
                 properties.load(language);
                 break;
         }
