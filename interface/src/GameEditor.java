@@ -29,9 +29,13 @@ public class GameEditor extends JFrame {
         init();
     }
 
+    private void init() {
+        loadProperties();
+        initGUI();
+    }
+
     private void loadProperties() {
         try {
-            //UIManager.put("OptionPane.messageFont", new FontUIResource("Lucida Sans", Font.PLAIN, 16));
             FileInputStream settings = new FileInputStream("settings/config.properties");
             properties = new Properties();
             properties.load(settings);
@@ -41,8 +45,31 @@ public class GameEditor extends JFrame {
         }
     }
 
-    private void init() {
-        loadProperties();
+    private void loadLanguagePack(String chosenLanguage) throws IOException {
+        // Load a language pack based on what is selected in the config properties file
+        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
+        properties = new Properties();
+        String prefix = "resources/warnings/Messages_";
+        String suffix = ".properties";
+        Reader language = null;
+
+        switch(chosenLanguage) {
+
+            case Constants.NORWEGIAN:
+                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+
+            default:
+                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+        }
+
+        language.close();
+    }
+
+    private void initGUI() {
         setMinimumSize(new Dimension(width, height));
 
         this.add(panel = new JPanel());
@@ -104,28 +131,6 @@ public class GameEditor extends JFrame {
         setVisible(true);
     }
 
-    private void loadLanguagePack(String chosenLanguage) throws IOException {
-        // Load a language pack based on what is selected in the config properties file
-        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
-        properties = new Properties();
-        String prefix = "resources/Messages_";
-        String suffix = ".properties";
-        Reader language = null;
-
-        switch(chosenLanguage) {
-
-            case Constants.NORWEGIAN:
-                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
-                properties.load(language);
-                break;
-
-            default:
-                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
-                properties.load(language);
-                break;
-        }
-    }
-
     public void loadText(File selectedFile, JTextArea area) throws IOException {
         FileReader fileReader = new FileReader(selectedFile);
         BufferedReader reader = new BufferedReader(fileReader);
@@ -147,7 +152,7 @@ public class GameEditor extends JFrame {
         if(Files.notExists(path) && !Files.exists(path)) {
             createDir(folderPath);
         } else {
-            System.out.println("Could not determine if the directory exists.");
+            System.err.println("Could not determine if the directory exists.");
         }
 
         saveFile(folderPath, input);
@@ -158,7 +163,7 @@ public class GameEditor extends JFrame {
         if(dir) {
             System.out.println("directory created");
         } else {
-            System.out.println("could not create directory");
+            System.err.println("could not create directory");
         }
     }
 
