@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="74f38cad-8ed8-4c14-8e17-eca270d9b81a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/TextToImage.iws" beforeDir="false" afterPath="$PROJECT_DIR$/TextToImage.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TextToImage/TextImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TextToImage/TextImage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TextImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TextImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../testtest.png" beforeDir="false" afterPath="$PROJECT_DIR$/../testtest.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../IS211_Algoritme/Madatory1" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
     <configuration name="TextImage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -61,7 +64,10 @@
       <updated>1581598277249</updated>
       <workItem from="1581598280196" duration="323000" />
       <workItem from="1581679864201" duration="59000" />
-      <workItem from="1582665684163" duration="2224000" />
+      <workItem from="1582665684163" duration="2225000" />
+      <workItem from="1582731671462" duration="793000" />
+      <workItem from="1583349944489" duration="265000" />
+      <workItem from="1583350272311" duration="3975000" />
     </task>
     <servers />
   </component>
@@ -69,38 +75,44 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="239" key="FileChooserDialogImpl" timestamp="1581679921329">
+    <state x="690" y="239" key="FileChooserDialogImpl" timestamp="1582732463853">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732463853" />
     <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1581679921329" />
-    <state width="1869" height="260" key="GridCell.Tab.0.bottom" timestamp="1582667299329">
+    <state width="1868" height="283" key="GridCell.Tab.0.bottom" timestamp="1583354060469">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1869" height="260" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582667299329" />
+    <state width="1868" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060469" />
     <state width="1869" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581598485766" />
-    <state width="1869" height="260" key="GridCell.Tab.0.center" timestamp="1582667299329">
+    <state width="1868" height="283" key="GridCell.Tab.0.center" timestamp="1583354060468">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1869" height="260" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582667299329" />
+    <state width="1868" height="283" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
     <state width="1869" height="283" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581598485766" />
-    <state width="1869" height="260" key="GridCell.Tab.0.left" timestamp="1582667299329">
+    <state width="1868" height="283" key="GridCell.Tab.0.left" timestamp="1583354060468">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1869" height="260" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582667299329" />
+    <state width="1868" height="283" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
     <state width="1869" height="283" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581598485766" />
-    <state width="1869" height="260" key="GridCell.Tab.0.right" timestamp="1582667299329">
+    <state width="1868" height="283" key="GridCell.Tab.0.right" timestamp="1583354060468">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1869" height="260" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582667299329" />
+    <state width="1868" height="283" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
     <state width="1869" height="283" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581598485766" />
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1582665693010">
+    <state x="352" y="98" key="SettingsEditor" timestamp="1582732234560">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582665693010" />
+    <state x="352" y="98" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732234560" />
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1583350287641">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583350287641" />
     <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581679872011" />
-    <state x="539" y="45" key="search.everywhere.popup" timestamp="1581598285004">
+    <state x="539" y="45" width="840" height="1034" key="search.everywhere.popup" timestamp="1582732444374">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="539" y="45" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732444374" />
     <state x="539" y="45" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1581598285004" />
   </component>
 </project>
