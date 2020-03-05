@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class TextImage {
 
@@ -72,12 +73,14 @@ public class TextImage {
     //Create file, if a file has same name the number++
     public static void createFile() throws IOException {
         try {
+            String data = readFile("../tasks.txt");
+            System.out.println(data);
         //Text for the file
-        BufferedImage bi = make("Kanta er best <3", "import 'fmt'", "func main(){32222222222222222222111111111111111111", "fmt.Println('Hello World!')1" , "}");
+        BufferedImage bi = make(data);
         File newFile;
         int index = 1;
         //File path
-        String parent = "D:/Filer/Codes/IS213 Open Source/213OSB/spill_1";
+        String parent = "../spill_1";
        //File name
         String name = "File";
         //File type
@@ -96,7 +99,17 @@ public class TextImage {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    //ReadFrom textFile and use the data as a String for creating picture
+    public static String readFile(String fileName)throws Exception {
+        String data = "";
+        data = new String(Files.readAllBytes(Paths.get(fileName)));
+        return data;
+    }
+
+
+
+    public static void main(String[] args) throws Exception {
         createFile();
+
     }
 }
