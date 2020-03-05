@@ -73,14 +73,14 @@ public class TextImage {
     //Create file, if a file has same name the number++
     public static void createFile() throws IOException {
         try {
-            String data = readFile("../tasks.txt");
+            String data = readFile("../TextInput/hello.txt");
             System.out.println(data);
         //Text for the file
         BufferedImage bi = make(data);
         File newFile;
         int index = 1;
         //File path
-        String parent = "../spill_1";
+        String parent = "../ImageOutput";
        //File name
         String name = "File";
         //File type
@@ -94,8 +94,6 @@ public class TextImage {
         } catch (Exception e){
             e.printStackTrace();
         }
-
-
 
     }
 
