@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class GameMenu {
 
@@ -16,6 +16,8 @@ public class GameMenu {
     private JPanel launchGamePanel;
 
     private int width = 300;
+
+    Properties properties;
 
     public GameMenu() {
         init();
@@ -64,6 +66,41 @@ public class GameMenu {
         frame.setVisible(true);
     }
 
+    private void loadProperties() {
+        try {
+            FileInputStream settings = new FileInputStream("settings/config.properties");
+            properties = new Properties();
+            properties.load(settings);
+            loadLanguagePack(properties.getProperty("language"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadLanguagePack(String chosenLanguage) throws IOException {
+        // Load a language pack based on what is selected in the config properties file
+        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
+        properties = new Properties();
+        String prefix = "resources/buttons/ButtonText_";
+        String suffix = ".properties";
+        Reader language = null;
+
+        switch(chosenLanguage) {
+
+            case Constants.NORWEGIAN:
+                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+
+            default:
+                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+        }
+
+        language.close();
+    }
+
     private void addGameLaunchers(JPanel panel) throws Exception {
         //TODO: Lettere å legge til flere games?
         JButton launchGame1 = new JButton("Launch game 1");
@@ -74,15 +111,15 @@ public class GameMenu {
             if(os.equals(Constants.WINDOWS)) {
                 //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
                 //TODO: Flytte hver executable inn i en egen mappe, for hver os
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "\\interface\\test\\windows\\runTest.exe"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/windows/runTest.exe"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/runTest.app"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/macOS/runTest.app"));
                 printGamePath();
 
             } else if(os.equals(Constants.UNIX)) {
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/runTest"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/unix/runTest"));
                 printGamePath();
 
             }
@@ -155,7 +192,6 @@ public class GameMenu {
     private boolean isUnix(String OS) {
         return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
     }
-
 
     public static void main(String[] args) {
         new GameMenu();
