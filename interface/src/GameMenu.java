@@ -6,12 +6,14 @@ import java.util.ArrayList;
 
 public class GameMenu {
 
+    private ArrayList<JButton> gameLaunchers;
+    private ArrayList<JButton> gameEditors;
+    private String OS;
+
     private JFrame frame;
     private JPanel containerPanel;
     private JPanel launchEditPanel;
     private JPanel launchGamePanel;
-    private ArrayList<JButton> gameLaunchers;
-    private ArrayList<JButton> gameEditors;
 
     private int width = 300;
 
@@ -22,6 +24,8 @@ public class GameMenu {
     private void init() {
         gameLaunchers = new ArrayList<>();
         gameEditors = new ArrayList<>();
+        OS = System.getProperty("os.name").toLowerCase();
+
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
         frame = new JFrame("Game Menu");
@@ -70,16 +74,16 @@ public class GameMenu {
             if(os.equals(Constants.WINDOWS)) {
                 //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
                 //TODO: Flytte hver executable inn i en egen mappe, for hver os
-                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest.exe"));
-                System.out.println(findGamePath());
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/windows/runTest.exe"));
+                printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
-                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest.app"));
-                System.out.println(findGamePath());
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/runTest.app"));
+                printGamePath();
 
             } else if(os.equals(Constants.UNIX)) {
-                launchGame1.addActionListener(e -> launchGame("/Users/bjornar.risdalen/github/prosjekter/interface/test/runTest"));
-                System.out.println(findGamePath());
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/runTest"));
+                printGamePath();
 
             }
         }
@@ -96,7 +100,6 @@ public class GameMenu {
      * @return operating system name as a string, or null if the os is not recognized
      */
     private String getOSName() {
-        String OS = System.getProperty("os.name").toLowerCase();
         if (isWindows(OS)) {
             return Constants.WINDOWS;
 
@@ -123,6 +126,10 @@ public class GameMenu {
         path = new File("").getAbsolutePath();
 
         return path;
+    }
+
+    public void printGamePath() {
+        System.out.println("[GameMenu]" + findGamePath());
     }
 
     public void launchGame(String path) {
