@@ -74,7 +74,7 @@ public class GameMenu {
             if(os.equals(Constants.WINDOWS)) {
                 //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
                 //TODO: Flytte hver executable inn i en egen mappe, for hver os
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/interface/test/windows/runTest.exe"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "\\interface\\test\\windows\\runTest.exe"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
