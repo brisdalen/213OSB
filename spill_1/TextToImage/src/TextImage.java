@@ -8,7 +8,12 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class TextImage {
 
@@ -39,7 +44,7 @@ public class TextImage {
         BufferedImage finalImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         g2d = finalImg.createGraphics();
         //Bakgrunn farge
-        g2d.setColor(Color.white);
+        g2d.setColor(Color.black);
         //Yrtre kantene på venstre og toppen
         g2d.fillRect(10, 10, width, height);
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -65,13 +70,46 @@ public class TextImage {
 
     }
 
-    public static void main(String[] args) {
-        try{
-            BufferedImage bi = make("Kanta er best <3", "import 'fmt'", "func main(){33333333333333311111111111111111111111111111111111111L2", "fmt.Println('Hello World!')33333333333333333333333" , "}");
-            File outputfile = new File("D:/Filer/Codes/IS213 Open Source/213OSB/spill_1", "testtest.png");
-            ImageIO.write(bi, "png", outputfile);
-        } catch(Exception e){
+    //Create file, if a file has same name the number++
+    public static void createFile() throws IOException {
+        try {
+            String data = readFile("../tasks.txt");
+            System.out.println(data);
+        //Text for the file
+        BufferedImage bi = make(data);
+        File newFile;
+        int index = 1;
+        //File path
+        String parent = "../spill_1";
+       //File name
+        String name = "File";
+        //File type
+        String extension = ".png";
+            //Loop that add file + number if the file has same name
+            while ((newFile = new File(parent, name + index + extension)).exists()) {
+            index++;
+            }
+        ImageIO.write(bi, "png", newFile);
+
+        } catch (Exception e){
             e.printStackTrace();
         }
+
+
+
+    }
+
+    //ReadFrom textFile and use the data as a String for creating picture
+    public static String readFile(String fileName)throws Exception {
+        String data = "";
+        data = new String(Files.readAllBytes(Paths.get(fileName)));
+        return data;
+    }
+
+
+
+    public static void main(String[] args) throws Exception {
+        createFile();
+
     }
 }
