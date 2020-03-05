@@ -144,8 +144,8 @@ public class GameEditor extends JFrame {
     }
 
     public void saveText(JTextArea area) throws IOException {
-        String folderName = "gamesave";
-        String folderPath = "./" + folderName;
+        String folderName = "TextInput";
+        String folderPath = "../spill_1/" + folderName;
 
         String input = area.getText();
         Path path = Paths.get(folderName);
@@ -170,6 +170,7 @@ public class GameEditor extends JFrame {
     private void saveFile(String folderPath, String input) throws IOException {
         FileOutputStream fos = null;
         Path filepath = Paths.get(folderPath + "/hello.txt");
+        System.out.println("[GE]" + filepath);
         if(Files.notExists(filepath)) {
             System.out.println("Creating and writing to file.");
             fos = new FileOutputStream(filepath.toString());
