@@ -17,7 +17,8 @@ public class GameMenu {
 
     private int width = 300;
 
-    Properties properties;
+    CustomProperties buttonProperties;
+    CustomProperties uiProperties;
 
     public GameMenu() {
         init();
@@ -27,6 +28,10 @@ public class GameMenu {
         gameLaunchers = new ArrayList<>();
         gameEditors = new ArrayList<>();
         OS = System.getProperty("os.name").toLowerCase();
+        buttonProperties = new CustomProperties("buttons/ButtonText");
+        uiProperties = new CustomProperties("uitext/UIText");
+        loadProperties(buttonProperties);
+        loadProperties(uiProperties);
 
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
@@ -45,12 +50,16 @@ public class GameMenu {
             e.printStackTrace();
         }
 
-        JButton launchEditor1 = new JButton("Launch editor 1");
-        launchEditor1.addActionListener(e -> openEditor("Editor 1"));
+        String launchText = buttonProperties.getProperty("launchEditor");
+        System.out.println("launchText = " + launchText);
+        JButton launchEditor1 = new JButton(launchText + " 1");
+        String frameText = uiProperties.getProperty("editorFrameTitle");
+        System.out.println("frameText = " + frameText);
+        launchEditor1.addActionListener(e -> openEditor(frameText + " 1"));
         gameEditors.add(launchEditor1);
 
-        JButton launchEditor2 = new JButton("Launch editor 2");
-        launchEditor2.addActionListener(e -> openEditor("Editor 2"));
+        JButton launchEditor2 = new JButton(buttonProperties.getProperty("launchEditor") + " 2");
+        launchEditor2.addActionListener(e -> openEditor(buttonProperties.getProperty("editorFrameTitle") + " 2"));
         gameEditors.add(launchEditor2);
 
         for(JButton b : gameEditors) {
@@ -63,25 +72,31 @@ public class GameMenu {
         frame.add(containerPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.pack();
         frame.setVisible(true);
     }
 
-    private void loadProperties() {
+    private void loadProperties(CustomProperties properties) {
         try {
             FileInputStream settings = new FileInputStream("settings/config.properties");
-            properties = new Properties();
             properties.load(settings);
-            loadLanguagePack(properties.getProperty("language"));
+            String language = properties.getProperty("language");
+            System.out.println("language = " + language);
+            loadLanguagePack(language, properties);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void loadLanguagePack(String chosenLanguage) throws IOException {
+    private void loadLanguagePack(String chosenLanguage, CustomProperties properties) throws IOException {
+        System.out.println("loadLanguagePack params: " + chosenLanguage + ", " + properties);
         // Load a language pack based on what is selected in the config properties file
         // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
-        properties = new Properties();
-        String prefix = "resources/buttons/ButtonText_";
+        String prefix = "resources/" + properties.getName() + "_";
+        loadLanguage(chosenLanguage, prefix, properties);
+    }
+
+    static void loadLanguage(String chosenLanguage, String prefix, Properties properties) throws IOException {
         String suffix = ".properties";
         Reader language = null;
 
@@ -103,7 +118,7 @@ public class GameMenu {
 
     private void addGameLaunchers(JPanel panel) throws Exception {
         //TODO: Lettere å legge til flere games?
-        JButton launchGame1 = new JButton("Launch game 1");
+        JButton launchGame1 = new JButton(buttonProperties.getProperty("launchGame") + " 1");
         // Retrieve the operating system name to open the right executable.
         String os = getOSName();
         if (os != null) {
