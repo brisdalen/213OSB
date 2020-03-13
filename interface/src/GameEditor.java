@@ -50,23 +50,7 @@ public class GameEditor extends JFrame {
         // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
         properties = new Properties();
         String prefix = "resources/warnings/Messages_";
-        String suffix = ".properties";
-        Reader language = null;
-
-        switch(chosenLanguage) {
-
-            case Constants.NORWEGIAN:
-                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
-                properties.load(language);
-                break;
-
-            default:
-                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
-                properties.load(language);
-                break;
-        }
-
-        language.close();
+        GameMenu.loadLanguage(chosenLanguage, prefix, properties);
     }
 
     private void initGUI() {

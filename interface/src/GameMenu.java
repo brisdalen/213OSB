@@ -17,40 +17,48 @@ public class GameMenu {
 
     private int width = 300;
 
-    Properties properties;
+    CustomProperties buttonProperties;
+    CustomProperties uiProperties;
 
     public GameMenu() {
         init();
     }
 
     private void init() {
+        // Initial variable initializations and property loading
         gameLaunchers = new ArrayList<>();
         gameEditors = new ArrayList<>();
         OS = System.getProperty("os.name").toLowerCase();
-
+        buttonProperties = new CustomProperties("buttons/ButtonText");
+        uiProperties = new CustomProperties("uitext/UIText");
+        loadProperty(buttonProperties);
+        loadProperty(uiProperties);
+        // Panel, frame and button initializations
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
         frame = new JFrame("Game Menu");
         frame.setMinimumSize(new Dimension(width, width/2));
-
+        // Game launcher panel initialization and adding all game launcher buttons
         launchGamePanel = new JPanel();
         launchGamePanel.setLayout(new FlowLayout());
-
-        launchEditPanel = new JPanel();
-        launchEditPanel.setLayout(new FlowLayout());
-
         try {
             addGameLaunchers(launchGamePanel);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // Editing launcher panel initialization and adding all editor launcher buttons
+        launchEditPanel = new JPanel();
+        launchEditPanel.setLayout(new FlowLayout());
+        // Retrieve button and ui text from the property files and apply them to ui buttons and frames.
+        String launchText = buttonProperties.getProperty("launchEditor");
+        String frameText = uiProperties.getProperty("editorFrameTitle");
 
-        JButton launchEditor1 = new JButton("Launch editor 1");
-        launchEditor1.addActionListener(e -> openEditor("Editor 1"));
+        JButton launchEditor1 = new JButton(launchText + " 1");
+        launchEditor1.addActionListener(e -> openEditor(frameText + " 1"));
         gameEditors.add(launchEditor1);
 
-        JButton launchEditor2 = new JButton("Launch editor 2");
-        launchEditor2.addActionListener(e -> openEditor("Editor 2"));
+        JButton launchEditor2 = new JButton(launchText + " 2");
+        launchEditor2.addActionListener(e -> openEditor(frameText + " 2"));
         gameEditors.add(launchEditor2);
 
         for(JButton b : gameEditors) {
@@ -63,28 +71,42 @@ public class GameMenu {
         frame.add(containerPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        // frame.pack() is very important, as the size of buttons change drasticly depending on which language is chosen.
+        frame.pack();
         frame.setVisible(true);
     }
 
-    private void loadProperties() {
+    private void loadProperty(CustomProperties properties) {
         try {
+            // When I tried to use the same FileInputStream for 2 properties, it didn't work.
+            // Coincidentally, this lead to better cohesion through this method, as it now loads a specific Properties.
             FileInputStream settings = new FileInputStream("settings/config.properties");
-            properties = new Properties();
+            // Initially the config.properties is loaded into the given CustomProperties object. This temporarly loads
+            // the country and language, which we use to load the rest of our properties.
             properties.load(settings);
-            loadLanguagePack(properties.getProperty("language"));
+            String language = properties.getProperty("language");
+            loadLanguagePack(language, properties);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void loadLanguagePack(String chosenLanguage) throws IOException {
-        // Load a language pack based on what is selected in the config properties file
-        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
-        properties = new Properties();
-        String prefix = "resources/buttons/ButtonText_";
+    // Load a language pack based on what is selected in the config properties file
+    // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
+    private void loadLanguagePack(String chosenLanguage, CustomProperties properties) throws IOException {
+        System.out.println("loadLanguagePack params: " + chosenLanguage + ", " + properties);
+        // As you see, the prefix takes in the CustomProperties name in the prefix path. This is to be able to
+        // choose which folder and type of properties to load. I.e. to load buttons, I set the name value to
+        // "buttons/ButtonText".
+        String prefix = "resources/" + properties.getName() + "_";
+        loadLanguage(chosenLanguage, prefix, properties);
+    }
+
+    static void loadLanguage(String chosenLanguage, String prefix, Properties properties) throws IOException {
         String suffix = ".properties";
         Reader language = null;
-
+        // Re-load the given property, based on which language pack has been selected in the config.properties file,
+        // and encode it as UTF-8
         switch(chosenLanguage) {
 
             case Constants.NORWEGIAN:
@@ -103,7 +125,7 @@ public class GameMenu {
 
     private void addGameLaunchers(JPanel panel) throws Exception {
         //TODO: Lettere å legge til flere games?
-        JButton launchGame1 = new JButton("Launch game 1");
+        JButton launchGame1 = new JButton(buttonProperties.getProperty("launchGame") + " 1");
         // Retrieve the operating system name to open the right executable.
         String os = getOSName();
         if (os != null) {
@@ -132,10 +154,6 @@ public class GameMenu {
         }
     }
 
-    /**
-     *
-     * @return operating system name as a string, or null if the os is not recognized
-     */
     private String getOSName() {
         if (isWindows(OS)) {
             return Constants.WINDOWS;
