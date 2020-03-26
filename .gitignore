@@ -3,3 +3,9 @@
 interface/.idea/vcs.xml
 
 interface/.idea/workspace.xml
+
+.DS_Store
+
+interface/.idea/interface.iml
+
+interface/test/export_presets.cfg

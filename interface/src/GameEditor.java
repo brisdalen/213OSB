@@ -1,9 +1,13 @@
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 public class GameEditor extends JFrame {
 
@@ -14,13 +18,45 @@ public class GameEditor extends JFrame {
     private JButton saveButton;
     private JButton loadButton;
     private Path lastOpened;
+    private int width = 600;
+    private int height = 400;
+
+    Properties properties;
 
     public GameEditor(String title, JFrame parent) {
         super(title);
         this.parent = parent;
-        setMinimumSize(new Dimension(600, 400));
+        init();
+    }
 
-        add(panel = new JPanel());
+    private void init() {
+        loadProperties();
+        initGUI();
+    }
+
+    private void loadProperties() {
+        try {
+            FileInputStream settings = new FileInputStream("settings/config.properties");
+            properties = new Properties();
+            properties.load(settings);
+            loadLanguagePack(properties.getProperty("language"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadLanguagePack(String chosenLanguage) throws IOException {
+        // Load a language pack based on what is selected in the config properties file
+        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
+        properties = new Properties();
+        String prefix = "resources/warnings/Messages_";
+        GameMenu.loadLanguage(chosenLanguage, prefix, properties);
+    }
+
+    private void initGUI() {
+        setMinimumSize(new Dimension(width, height));
+
+        this.add(panel = new JPanel());
         inputField = new JTextArea();
         inputField.setLineWrap(true);
 
@@ -84,6 +120,7 @@ public class GameEditor extends JFrame {
         BufferedReader reader = new BufferedReader(fileReader);
         String line = null;
         StringBuilder sb = new StringBuilder();
+        // If it find a new line, it appends and sets the area text to the final result.
         while((line = reader.readLine()) != null) {
             sb.append(line);
         }
@@ -91,38 +128,57 @@ public class GameEditor extends JFrame {
     }
 
     public void saveText(JTextArea area) throws IOException {
-        //TODO: Lagrer ikke ordentlig
+        String folderName = "TextInput";
+        String folderPath = "../spill_1/" + folderName;
+
         String input = area.getText();
-        Path path = Paths.get("gameserver");
+        Path path = Paths.get(folderName);
         if(Files.notExists(path) && !Files.exists(path)) {
-            boolean dir = new File("./gamesave").mkdirs();
-            if(dir) {
-                System.out.println("directory created");
-            } else {
-                System.out.println("could not create directory");
-            }
+            createDir(folderPath);
         } else {
-            System.out.println("Could not determine if the directory exists.");
+            System.err.println("Could not determine if the directory exists.");
         }
 
-        FileOutputStream fos;
-        Path filepath = Paths.get("./gamesave/hello.txt");
-        if(Files.notExists(filepath)) {
-            fos = new FileOutputStream(filepath.toString());
-            System.out.println("File created");
-            fos.write(input.getBytes());
-            fos.flush();
-            fos.close();
+        saveFile(folderPath, input);
+    }
+
+    private void createDir(String filepath) {
+        boolean dir = new File(filepath).mkdirs();
+        if(dir) {
+            System.out.println("directory created");
         } else {
-            FileReader fileReader = new FileReader(filepath.toString());
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = null;
-            StringBuilder sb = new StringBuilder();
-            while((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
+            System.err.println("could not create directory");
+        }
+    }
+
+    private void saveFile(String folderPath, String input) throws IOException {
+        FileOutputStream fos = null;
+        Path filepath = Paths.get(folderPath + "/hello.txt");
+        System.out.println("[GE]" + filepath);
+        if(Files.notExists(filepath)) {
+            System.out.println("Creating and writing to file.");
             fos = new FileOutputStream(filepath.toString());
-            fos.write(sb.toString().getBytes());
+            fos.write(input.getBytes());
+        } else {
+            // Prompt the user if they want to override the existing file, and do nothing if they don't.
+            System.out.println("Prompting for overriding.");
+            int result = JOptionPane.showConfirmDialog(this,
+                    properties.getProperty("textFileOverridePrompt"),
+                    properties.getProperty("overrideNotice"),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null);
+
+            if(result == 0) {
+                System.out.println("Overriding existing file.");
+                fos = new FileOutputStream(filepath.toString());
+                fos.write(input.getBytes());
+            } else {
+                System.err.println("Aborting override.");
+            }
+        }
+
+        if(fos != null) {
             fos.flush();
             fos.close();
         }
