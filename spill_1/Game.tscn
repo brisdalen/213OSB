@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://save.png" type="Texture" id=1]
+[ext_resource path="res://Brikke 1.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 75.1122, 75.3459 )
+
+[node name="Game" type="Node2D"]
+
+[node name="Brikke 1" type="Sprite" parent="."]
+position = Vector2( 80.4433, 87.9439 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 2
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Brikke 1"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Brikke 1/Area2D"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brikke 4" type="Sprite" parent="."]
+position = Vector2( 278.21, 264.572 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 2
+frame = 3
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Brikke 4"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Brikke 4/Area2D"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brikke 3" type="Sprite" parent="."]
+position = Vector2( 82.3223, 264.572 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 2
+frame = 2
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Brikke 3"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Brikke 3/Area2D"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brikke 2" type="Sprite" parent="."]
+position = Vector2( 276.331, 87.4742 )
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 2
+frame = 1
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Brikke 2"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Brikke 2/Area2D"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="mouse_entered" from="Brikke 1/Area2D" to="Brikke 1" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Brikke 1/Area2D" to="Brikke 1" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="Brikke 4/Area2D" to="Brikke 4" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Brikke 4/Area2D" to="Brikke 4" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="Brikke 3/Area2D" to="Brikke 3" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Brikke 3/Area2D" to="Brikke 3" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="Brikke 2/Area2D" to="Brikke 2" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Brikke 2/Area2D" to="Brikke 2" method="_on_Area2D_mouse_exited"]
