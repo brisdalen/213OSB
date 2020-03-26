@@ -14,18 +14,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+
+import static java.awt.Color.*;
 
 public class TextImage {
 
+
     //Method that change
-    public static BufferedImage make(String...textrows)
+    public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
     {
         //BufferedImage
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
         //Lage bildet
         Graphics2D g2d = helperImg.createGraphics();
-        //Skrift type, FONT
-        Font font = new Font("Serif", Font.PLAIN, 20);
+        //Skrift type, FONT //PLAIN, BOLD, ITALIC
+        Font font = new Font("Serif", Font.ITALIC, tSize);
         g2d.setFont(font);
         FontMetrics fm = g2d.getFontMetrics();
         String longestText = "";
@@ -44,9 +48,9 @@ public class TextImage {
         BufferedImage finalImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         g2d = finalImg.createGraphics();
         //Bakgrunn farge
-        g2d.setColor(Color.black);
+        g2d.setColor(bgColor);
         //Yrtre kantene på venstre og toppen
-        g2d.fillRect(10, 10, width, height);
+        g2d.fillRect(1, 1, width, height);
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -57,8 +61,9 @@ public class TextImage {
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g2d.setFont(font);
         fm = g2d.getFontMetrics();
+
         //Skrift farge på skriften
-        g2d.setColor(Color.green);
+        g2d.setColor(tColor);
         int y = fm.getAscent();
         for(String row: textrows)
         {
@@ -71,12 +76,13 @@ public class TextImage {
     }
 
     //Create file, if a file has same name the number++
-    public static void createFile() throws IOException {
+    //
+    public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
-            String data = readFile("../TextInput/hello.txt");
-            System.out.println(data);
+            String[] data = readFile("../TextInput/Test1.txt");
+            System.out.println(Arrays.toString(data));
         //Text for the file
-        BufferedImage bi = make(data);
+        BufferedImage bi = make(bg, txt, tSize,data);
         File newFile;
         int index = 1;
         //File path
@@ -97,17 +103,23 @@ public class TextImage {
 
     }
 
-    //ReadFrom textFile and use the data as a String for creating picture
-    public static String readFile(String fileName)throws Exception {
-        String data = "";
-        data = new String(Files.readAllBytes(Paths.get(fileName)));
-        return data;
+    //ReadFrom textFile and use the data as a String[] for creating picture
+    public static String[] readFile(String fileName)throws Exception {
+        String data = new String(Files.readAllBytes(Paths.get(fileName)));
+        //Spilt string and add lineshift
+        String[] dataSplit = data.split("\n");
+        return dataSplit;
     }
+
+
+
+
 
 
 
     public static void main(String[] args) throws Exception {
-        createFile();
-
+        createFile(blue, green, 23);
     }
+
+
 }

@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74f38cad-8ed8-4c14-8e17-eca270d9b81a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../File.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/.idea/Test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/out/production/Test/ImageWriteEx.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/out/production/Test/TextImage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/out/production/Test/TextToGraphics.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/save.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/src/TextImage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/src/TextToGraphics.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/src/testRun.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/testtest.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TextToImage.iws" beforeDir="false" afterPath="$PROJECT_DIR$/TextToImage.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TextToImage/TextImage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TextToImage/TextImage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TextImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TextImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testtest.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testtest1.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +32,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../IS211_Algoritme/Madatory1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../interface" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -83,6 +67,11 @@
       <workItem from="1582731671462" duration="793000" />
       <workItem from="1583349944489" duration="265000" />
       <workItem from="1583350272311" duration="4514000" />
+      <workItem from="1583402949640" duration="7421000" />
+      <workItem from="1584012798943" duration="5068000" />
+      <workItem from="1584121416914" duration="5000" />
+      <workItem from="1584970344973" duration="9000" />
+      <workItem from="1585216891266" duration="1088000" />
     </task>
     <servers />
   </component>
@@ -90,44 +79,48 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="239" key="FileChooserDialogImpl" timestamp="1582732463853">
+    <state x="690" y="239" key="FileChooserDialogImpl" timestamp="1583402975422">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732463853" />
-    <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1581679921329" />
-    <state width="1868" height="296" key="GridCell.Tab.0.bottom" timestamp="1583402402263">
+    <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1583402975422" />
+    <state width="1869" height="296" key="GridCell.Tab.0.bottom" timestamp="1585217995932">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060469" />
-    <state width="1868" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583402402263" />
-    <state width="1868" height="296" key="GridCell.Tab.0.center" timestamp="1583402402263">
+    <state width="1869" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585217995932" />
+    <state width="1868" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583412495746" />
+    <state width="1869" height="296" key="GridCell.Tab.0.center" timestamp="1585217995931">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="283" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
-    <state width="1868" height="296" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583402402263" />
-    <state width="1868" height="296" key="GridCell.Tab.0.left" timestamp="1583402402263">
+    <state width="1869" height="296" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585217995931" />
+    <state width="1868" height="296" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583412495746" />
+    <state width="1869" height="296" key="GridCell.Tab.0.left" timestamp="1585217995931">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="283" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
-    <state width="1868" height="296" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583402402263" />
-    <state width="1868" height="296" key="GridCell.Tab.0.right" timestamp="1583402402263">
+    <state width="1869" height="296" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585217995931" />
+    <state width="1868" height="296" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583412495745" />
+    <state width="1869" height="296" key="GridCell.Tab.0.right" timestamp="1585217995931">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="283" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354060468" />
-    <state width="1868" height="296" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583402402263" />
+    <state width="1869" height="296" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585217995931" />
+    <state width="1868" height="296" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583412495746" />
     <state x="352" y="98" key="SettingsEditor" timestamp="1582732234560">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="352" y="98" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732234560" />
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1583350287641">
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1585216893887">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583350287641" />
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581679872011" />
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585216893887" />
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1583402950761" />
     <state x="730" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583354787829">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="730" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1583354787829" />
+    <state x="540" y="251" key="run.anything.popup" timestamp="1583411741041">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="540" y="251" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1583411741041" />
     <state x="539" y="45" width="840" height="1034" key="search.everywhere.popup" timestamp="1582732444374">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
