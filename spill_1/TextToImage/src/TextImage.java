@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static java.awt.Color.*;
 
@@ -21,14 +22,14 @@ public class TextImage {
 
 
     //Method that change
-    public static BufferedImage make(Color bgColor, Color tColor, String...textrows)
+    public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
     {
         //BufferedImage
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
         //Lage bildet
         Graphics2D g2d = helperImg.createGraphics();
-        //Skrift type, FONT
-        Font font = new Font("Serif", Font.PLAIN, 20);
+        //Skrift type, FONT //PLAIN, BOLD, ITALIC
+        Font font = new Font("Serif", Font.ITALIC, tSize);
         g2d.setFont(font);
         FontMetrics fm = g2d.getFontMetrics();
         String longestText = "";
@@ -76,12 +77,12 @@ public class TextImage {
 
     //Create file, if a file has same name the number++
     //
-    public static void createFile(Color bg, Color txt) throws IOException {
+    public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
-            String[] data = readFile("../TextInput/Langtekst.txt");
-            System.out.println(data);
+            String[] data = readFile("../TextInput/Test1.txt");
+            System.out.println(Arrays.toString(data));
         //Text for the file
-        BufferedImage bi = make(bg, txt, data);
+        BufferedImage bi = make(bg, txt, tSize,data);
         File newFile;
         int index = 1;
         //File path
@@ -102,9 +103,10 @@ public class TextImage {
 
     }
 
-    //ReadFrom textFile and use the data as a String for creating picture
+    //ReadFrom textFile and use the data as a String[] for creating picture
     public static String[] readFile(String fileName)throws Exception {
         String data = new String(Files.readAllBytes(Paths.get(fileName)));
+        //Spilt string and add lineshift
         String[] dataSplit = data.split("\n");
         return dataSplit;
     }
@@ -116,7 +118,7 @@ public class TextImage {
 
 
     public static void main(String[] args) throws Exception {
-        createFile(blue, green);
+        createFile(blue, green, 23);
     }
 
 
