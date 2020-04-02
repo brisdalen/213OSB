@@ -92,7 +92,7 @@ public class GameMenu {
         // Panel, frame and button initializations
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
-        frame = new JFrame("Game Menu");
+        frame = new JFrame(uiProperties.getProperty("menuFrameTitle"));
         frame.setMinimumSize(new Dimension(width, width/2));
         // ----- Game launcher panel initialization and adding all game launcher buttons
         launchGamePanel = new JPanel();

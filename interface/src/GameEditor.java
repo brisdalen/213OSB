@@ -1,8 +1,14 @@
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,15 +19,20 @@ import java.util.Properties;
 public class GameEditor extends JFrame {
 
     private JFrame parent;
+    private JFrame thisFrame;
     private int width = 600;
     private int height = 400;
     private JPanel panel;
 
     private JTextArea inputField;
+    private Font font1;
+    private int initialFontSize = 16;
+    private int textSize = initialFontSize;
 
     private JPanel buttonPanel;
     private JButton saveButton;
     private JButton loadButton;
+    private JButton exportTextButton;
 
     private JPanel colorPanel;
     private JLabel foregroundLabel;
@@ -31,6 +42,8 @@ public class GameEditor extends JFrame {
     private Color foregroundColor;
     private Color backgroundColor;
     private ArrayList<JButton> buttons;
+    private JLabel textSizeLabel;
+    private JTextField textSizeInput;
 
     private Path lastOpened;
 
@@ -40,6 +53,8 @@ public class GameEditor extends JFrame {
     public GameEditor(String title, JFrame parent) {
         super(title);
         this.parent = parent;
+        // Used for the error message in fontSize
+        thisFrame = this;
         init();
     }
 
@@ -115,11 +130,35 @@ public class GameEditor extends JFrame {
         // Main panel with the inputField initialization
         this.add(panel = new JPanel());
 
-        inputField = new JTextArea();
-        inputField.setLineWrap(true);
+        initInputField();
         // --------------- inputField panel complete ---------------
         // Button panel initialization
-        saveButton = new JButton("Save text");
+        initButtons();
+        // --------------- Button panel complete ---------------
+        // Color panel initialization
+        initColorPanel();
+        // --------------- Color panel complete ---------------
+        // Adding all panels to the main panel
+        panel.setLayout(new BorderLayout());
+        panel.add(inputField, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+        panel.add(colorPanel, BorderLayout.EAST);
+
+        setLocation(parent.getX()-parent.getWidth()+parent.getWidth()/2, parent.getY()+parent.getHeight());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
+        this.pack();
+    }
+
+    private void initInputField() {
+        inputField = new JTextArea();
+        font1 = new Font(Font.SANS_SERIF, Font.PLAIN, initialFontSize);
+        inputField.setFont(font1);
+        inputField.setLineWrap(true);
+    }
+
+    private void initButtons() {
+        saveButton = new JButton(buttonProperties.getProperty("saveText"));
         saveButton.addActionListener(e -> {
             try {
                 saveText(inputField);
@@ -128,7 +167,7 @@ public class GameEditor extends JFrame {
             }
         });
 
-        loadButton = new JButton("Load textfile");
+        loadButton = new JButton(buttonProperties.getProperty("loadText"));
         //TODO: kanskje refactore til egen klasse?
         loadButton.addActionListener(e -> {
             try {
@@ -161,48 +200,126 @@ public class GameEditor extends JFrame {
                 ex.printStackTrace();
             }
         });
+
+        exportTextButton = new JButton(buttonProperties.getProperty("exportText"));
+        exportTextButton.addActionListener(e -> {
+            String exportPath = "../spill_1/TextInput/";
+            String[] count = new File(exportPath).list();
+            int numFiles = 0;
+            if(count != null) {
+                numFiles = count.length;
+            }
+            String fileName;
+            if(numFiles == 0) {
+                fileName = "export_0";
+            } else {
+                fileName = "export_" + numFiles;
+            }
+            int foregroundColor = foregroundButton.getBackground().getRGB();
+            int backgroundColor = backgroundButton.getBackground().getRGB();
+            String content = inputField.getText();
+            try {
+                exportFile(exportPath, fileName, foregroundColor, backgroundColor, textSize, content);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         buttonPanel = new JPanel();
+        buttonPanel.setFocusable(true);
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
-        // --------------- Button panel complete ---------------
-        // Color panel initialization
+        buttonPanel.add(exportTextButton);
+    }
 
-        foregroundLabel = new JLabel(buttonProperties.getProperty("selectForeground"));
+    private void initColorPanel() {
+        String chooseForeground = buttonProperties.getProperty("selectForeground");
+        foregroundLabel = new JLabel(chooseForeground);
         foregroundColor = Color.GREEN;
         foregroundButton = new JButton("");
+
+        foregroundButton.addActionListener(e -> {
+            addForegroundColorChooser(foregroundButton, chooseForeground, foregroundColor);
+            //inputField.setForeground(foregroundColor);
+        });
         buttons.add(foregroundButton);
 
-        backgroundLabel = new JLabel(buttonProperties.getProperty("selectBackground"));
+        String chooseBackground = buttonProperties.getProperty("selectBackground");
+        backgroundLabel = new JLabel(chooseBackground);
         backgroundColor = Color.BLACK;
         backgroundButton = new JButton("");
+
+        backgroundButton.addActionListener(e -> {
+            addBackgroundColorChooser(backgroundButton, chooseBackground, backgroundColor);
+            //inputField.setBackground(backgroundColor);
+        });
         buttons.add(backgroundButton);
 
         foregroundButton.setBackground(foregroundColor);
         backgroundButton.setBackground(backgroundColor);
 
         colorPanel = new JPanel();
-        colorPanel.setLayout(new FlowLayout());
+        colorPanel.setLayout(new GridLayout(8, 3));
         colorPanel.setPreferredSize(new Dimension(150, 0));
 
         for(JButton button : buttons) {
             button.setPreferredSize(new Dimension(30, 30));
         }
 
+        textSizeLabel = new JLabel(buttonProperties.getProperty("selectTextSize"));
+        textSizeInput = new JTextField(String.valueOf(textSize), 1);
+        textSizeInput.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                //TODO: Fix error handling if the user enters a non-number into the fontSize input
+                try {
+                    textSize = Integer.parseInt(textSizeInput.getText());
+                } catch(NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(thisFrame,
+                            //messageProperties.getProperty("textFileOverridePrompt"),
+                            "Please write a number instead.",
+                            //messageProperties.getProperty("overrideNotice"),
+                            "Number Expected Error",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                    nfe.printStackTrace();
+                    textSize = initialFontSize;
+                }
+                font1 = new Font(font1.getFontName(), font1.getStyle(), textSize);
+                inputField.setFont(font1);
+                inputField.repaint();
+            }
+        });
+        textSizeInput.setHorizontalAlignment(JTextField.CENTER);
+        inputField.setForeground(foregroundColor);
+        inputField.setBackground(backgroundColor);
+        inputField.setTabSize(2);
+
         colorPanel.add(foregroundLabel);
         colorPanel.add(foregroundButton);
         colorPanel.add(backgroundLabel);
         colorPanel.add(backgroundButton);
-        // --------------- Color panel complete ---------------
-        // Adding all panels to the main panel
-        panel.setLayout(new BorderLayout());
-        panel.add(inputField, BorderLayout.CENTER);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
-        panel.add(colorPanel, BorderLayout.EAST);
+        colorPanel.add(textSizeLabel);
+        colorPanel.add(textSizeInput);
+    }
 
-        setLocation(parent.getX()-parent.getWidth()+parent.getWidth()/2, parent.getY()+parent.getHeight());
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setVisible(true);
-        this.pack();
+    private void addForegroundColorChooser(JButton jButton, String frameText, Color color) {
+        inputField.setForeground(addColorChooser(jButton, frameText, color));
+        //inputField.repaint();
+    }
+
+    private void addBackgroundColorChooser(JButton jButton, String frameText, Color color) {
+        inputField.setBackground(addColorChooser(jButton, frameText, color));
+        //inputField.repaint();
+    }
+
+    private Color addColorChooser(JButton jButton, String frameText, Color color) {
+        Color newColor = JColorChooser.showDialog(this, frameText, color);
+        if(newColor != null) {
+            jButton.setBackground(newColor);
+            return newColor;
+        }
+        return color;
     }
 
     public void loadText(File selectedFile, JTextArea area) throws IOException {
@@ -239,6 +356,14 @@ public class GameEditor extends JFrame {
         } else {
             System.err.println("could not create directory");
         }
+    }
+
+    private void exportFile(String folderPath, String fileName, int foregroundRGB, int backgroundRGB, int textSize, String content) throws IOException {
+        Path filepath = Paths.get(folderPath + fileName);
+        FileOutputStream fos = new FileOutputStream(filepath.toString());
+        String export = "[" + foregroundRGB + "]\n[" + backgroundRGB + "]\n[" + textSize + "]\n" +  content;
+        fos.write(export.getBytes());
+        System.out.println("Export success! " + filepath);
     }
 
     private void saveFile(String folderPath, String input) throws IOException {
