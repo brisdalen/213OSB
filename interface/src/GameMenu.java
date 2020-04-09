@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -135,6 +137,7 @@ public class GameMenu {
     private void addGameLaunchers(JPanel panel) throws Exception {
         //TODO: Lettere å legge til flere games?
         JButton launchGame1 = new JButton(buttonProperties.getProperty("launchGame") + " 1");
+        JButton launchGame2 = new JButton(buttonProperties.getProperty("launchGame") + " 2");
         // Retrieve the operating system name to open the right executable.
         String os = getOSName();
         if (os != null) {
@@ -143,24 +146,39 @@ public class GameMenu {
                 //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
                 //TODO: Flytte hver executable inn i en egen mappe, for hver os
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/windows/runTest.exe"));
+                launchGame2.addActionListener(e -> launchGame(findGamePath() + "/spill_4/windows/game4.exe"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/macOS/runTest.app"));
+                //TODO: Endre feilbeskjed til property
+                launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for mac"));
                 printGamePath();
 
             } else if(os.equals(Constants.UNIX)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/unix/runTest"));
+                launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for unix"));
                 printGamePath();
 
             }
         }
         // Add the button to the list of launchers, and to the panel.
         gameLaunchers.add(launchGame1);
+        gameLaunchers.add(launchGame2);
 
         for(JButton b : gameLaunchers) {
             panel.add(b);
         }
+    }
+
+    private void displayErrorMessage(String errorMessage) {
+        JOptionPane.showMessageDialog(this.frame,
+                //messageProperties.getProperty(errorMessage),
+                errorMessage,
+                //messageProperties.getProperty("osNotExported"),
+                "Game Not Exported for this OS",
+                JOptionPane.ERROR_MESSAGE,
+                null);
     }
 
     private String getOSName() {
@@ -186,8 +204,8 @@ public class GameMenu {
         //TODO: Implement path finding of applications
 
         String path;
-
-        path = new File("").getAbsolutePath();
+        // Find the path starting at the project list instead of in the interface folder
+        path = new File("../").getAbsolutePath();
 
         return path;
     }
