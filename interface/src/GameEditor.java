@@ -359,9 +359,9 @@ public class GameEditor extends JFrame {
     }
 
     private void exportFile(String folderPath, String fileName, int foregroundRGB, int backgroundRGB, int textSize, String content) throws IOException {
-        Path filepath = Paths.get(folderPath + fileName);
+        Path filepath = Paths.get(folderPath + fileName + ".export");
         FileOutputStream fos = new FileOutputStream(filepath.toString());
-        String export = "[" + foregroundRGB + "]\n[" + backgroundRGB + "]\n[" + textSize + "]\n" +  content;
+        String export = "[" + foregroundRGB + "]\n[" + backgroundRGB + "]\n[" + textSize + "]\n" + "[" + content + "]";
         fos.write(export.getBytes());
         System.out.println("Export success! " + filepath);
     }
