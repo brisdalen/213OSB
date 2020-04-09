@@ -1,66 +1,164 @@
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class GameEditor extends JFrame {
 
     private JFrame parent;
-    private JPanel panel;
-    private JPanel buttonPanel;
-    private JTextArea inputField;
-    private JButton saveButton;
-    private JButton loadButton;
-    private Path lastOpened;
+    private JFrame thisFrame;
     private int width = 600;
     private int height = 400;
+    private JPanel panel;
 
-    Properties properties;
+    private JTextArea inputField;
+    private Font font1;
+    private int initialFontSize = 16;
+    private int textSize = initialFontSize;
+
+    private JPanel buttonPanel;
+    private JButton saveButton;
+    private JButton loadButton;
+    private JButton exportTextButton;
+
+    private JPanel colorPanel;
+    private JLabel foregroundLabel;
+    private JLabel backgroundLabel;
+    private JButton foregroundButton;
+    private JButton backgroundButton;
+    private Color foregroundColor;
+    private Color backgroundColor;
+    private ArrayList<JButton> buttons;
+    private JLabel textSizeLabel;
+    private JTextField textSizeInput;
+
+    private Path lastOpened;
+
+    CustomProperties buttonProperties;
+    CustomProperties messageProperties;
 
     public GameEditor(String title, JFrame parent) {
         super(title);
         this.parent = parent;
+        // Used for the error message in fontSize
+        thisFrame = this;
         init();
     }
 
     private void init() {
-        loadProperties();
+        initProperties();
         initGUI();
     }
 
-    private void loadProperties() {
+    private void initProperties() {
+        // Provide which folder in the resoures folder you want to use, and the up till the first '_'
+        buttonProperties = new CustomProperties("buttons/ButtonText");
+        messageProperties = new CustomProperties("warnings/Messages");
+        loadProperty(buttonProperties);
+        loadProperty(messageProperties);
+    }
+
+    //TODO: static metode eller fra en Utility klasse
+    private void loadProperty(CustomProperties properties) {
         try {
+            // When I tried to use the same FileInputStream for 2 properties, it didn't work.
+            // Coincidentally, this lead to better cohesion through this method, as it now loads a specific Properties.
             FileInputStream settings = new FileInputStream("settings/config.properties");
-            properties = new Properties();
+            // Initially the config.properties is loaded into the given CustomProperties object. This temporarly loads
+            // the country and language, which we use to load the rest of our properties.
             properties.load(settings);
-            loadLanguagePack(properties.getProperty("language"));
+            String language = properties.getProperty("language");
+            loadLanguagePack(language, properties);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    //TODO: static metode eller fra en Utility klasse
+    // Load a language pack based on what is selected in the config properties file
+    // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
+    private void loadLanguagePack(String chosenLanguage, CustomProperties properties) throws IOException {
+        System.out.println("loadLanguagePack params: " + chosenLanguage + ", " + properties);
+        // As you see, the prefix takes in the CustomProperties name in the prefix path. This is to be able to
+        // choose which folder and type of properties to load. I.e. to load buttons, I set the name value to
+        // "buttons/ButtonText".
+        String prefix = "resources/" + properties.getName() + "_";
+        loadLanguage(chosenLanguage, prefix, properties);
+    }
+    //TODO: static metode eller fra en Utility klasse
+    static void loadLanguage(String chosenLanguage, String prefix, Properties properties) throws IOException {
+        String suffix = ".properties";
+        Reader language = null;
+        // Re-load the given property, based on which language pack has been selected in the config.properties file,
+        // and encode it as UTF-8
+        switch(chosenLanguage) {
 
-    private void loadLanguagePack(String chosenLanguage) throws IOException {
-        // Load a language pack based on what is selected in the config properties file
-        // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
-        properties = new Properties();
-        String prefix = "resources/warnings/Messages_";
-        GameMenu.loadLanguage(chosenLanguage, prefix, properties);
+            case Constants.NORWEGIAN:
+                language = new InputStreamReader(new FileInputStream(prefix + "NO_bokmaal" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+
+            default:
+                language = new InputStreamReader(new FileInputStream(prefix + "en_UK_standard" + suffix), "UTF-8");
+                properties.load(language);
+                break;
+        }
+
+        language.close();
     }
 
     private void initGUI() {
+        buttons = new ArrayList<>();
+        try {
+            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setMinimumSize(new Dimension(width, height));
-
+        // Main panel with the inputField initialization
         this.add(panel = new JPanel());
-        inputField = new JTextArea();
-        inputField.setLineWrap(true);
 
-        saveButton = new JButton("Save text");
+        initInputField();
+        // --------------- inputField panel complete ---------------
+        // Button panel initialization
+        initButtons();
+        // --------------- Button panel complete ---------------
+        // Color panel initialization
+        initColorPanel();
+        // --------------- Color panel complete ---------------
+        // Adding all panels to the main panel
+        panel.setLayout(new BorderLayout());
+        panel.add(inputField, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+        panel.add(colorPanel, BorderLayout.EAST);
+
+        setLocation(parent.getX()-parent.getWidth()+parent.getWidth()/2, parent.getY()+parent.getHeight());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
+        this.pack();
+    }
+
+    private void initInputField() {
+        inputField = new JTextArea();
+        font1 = new Font(Font.SANS_SERIF, Font.PLAIN, initialFontSize);
+        inputField.setFont(font1);
+        inputField.setLineWrap(true);
+    }
+
+    private void initButtons() {
+        saveButton = new JButton(buttonProperties.getProperty("saveText"));
         saveButton.addActionListener(e -> {
             try {
                 saveText(inputField);
@@ -69,7 +167,7 @@ public class GameEditor extends JFrame {
             }
         });
 
-        loadButton = new JButton("Load textfile");
+        loadButton = new JButton(buttonProperties.getProperty("loadText"));
         //TODO: kanskje refactore til egen klasse?
         loadButton.addActionListener(e -> {
             try {
@@ -103,16 +201,125 @@ public class GameEditor extends JFrame {
             }
         });
 
-        panel.setLayout(new BorderLayout());
-        panel.add(inputField, BorderLayout.CENTER);
+        exportTextButton = new JButton(buttonProperties.getProperty("exportText"));
+        exportTextButton.addActionListener(e -> {
+            String exportPath = "../spill_1/TextInput/";
+            String[] count = new File(exportPath).list();
+            int numFiles = 0;
+            if(count != null) {
+                numFiles = count.length;
+            }
+            String fileName;
+            if(numFiles == 0) {
+                fileName = "export_0";
+            } else {
+                fileName = "export_" + numFiles;
+            }
+            int foregroundColor = foregroundButton.getBackground().getRGB();
+            int backgroundColor = backgroundButton.getBackground().getRGB();
+            String content = inputField.getText();
+            try {
+                exportFile(exportPath, fileName, foregroundColor, backgroundColor, textSize, content);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         buttonPanel = new JPanel();
+        buttonPanel.setFocusable(true);
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        buttonPanel.add(exportTextButton);
+    }
 
-        setLocation(parent.getX()-parent.getWidth()+parent.getWidth()/2, parent.getY()+parent.getHeight());
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setVisible(true);
+    private void initColorPanel() {
+        String chooseForeground = buttonProperties.getProperty("selectForeground");
+        foregroundLabel = new JLabel(chooseForeground);
+        foregroundColor = Color.GREEN;
+        foregroundButton = new JButton("");
+
+        foregroundButton.addActionListener(e -> {
+            addForegroundColorChooser(foregroundButton, chooseForeground, foregroundColor);
+            //inputField.setForeground(foregroundColor);
+        });
+        buttons.add(foregroundButton);
+
+        String chooseBackground = buttonProperties.getProperty("selectBackground");
+        backgroundLabel = new JLabel(chooseBackground);
+        backgroundColor = Color.BLACK;
+        backgroundButton = new JButton("");
+
+        backgroundButton.addActionListener(e -> {
+            addBackgroundColorChooser(backgroundButton, chooseBackground, backgroundColor);
+            //inputField.setBackground(backgroundColor);
+        });
+        buttons.add(backgroundButton);
+
+        foregroundButton.setBackground(foregroundColor);
+        backgroundButton.setBackground(backgroundColor);
+
+        colorPanel = new JPanel();
+        colorPanel.setLayout(new GridLayout(8, 3));
+        colorPanel.setPreferredSize(new Dimension(150, 0));
+
+        for(JButton button : buttons) {
+            button.setPreferredSize(new Dimension(30, 30));
+        }
+
+        textSizeLabel = new JLabel(buttonProperties.getProperty("selectTextSize"));
+        textSizeInput = new JTextField(String.valueOf(textSize), 1);
+        textSizeInput.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                //TODO: Fix error handling if the user enters a non-number into the fontSize input
+                try {
+                    textSize = Integer.parseInt(textSizeInput.getText());
+                } catch(NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(thisFrame,
+                            //messageProperties.getProperty("textFileOverridePrompt"),
+                            "Please write a number instead.",
+                            //messageProperties.getProperty("overrideNotice"),
+                            "Number Expected Error",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                    nfe.printStackTrace();
+                    textSize = initialFontSize;
+                }
+                font1 = new Font(font1.getFontName(), font1.getStyle(), textSize);
+                inputField.setFont(font1);
+                inputField.repaint();
+            }
+        });
+        textSizeInput.setHorizontalAlignment(JTextField.CENTER);
+        inputField.setForeground(foregroundColor);
+        inputField.setBackground(backgroundColor);
+        inputField.setTabSize(2);
+
+        colorPanel.add(foregroundLabel);
+        colorPanel.add(foregroundButton);
+        colorPanel.add(backgroundLabel);
+        colorPanel.add(backgroundButton);
+        colorPanel.add(textSizeLabel);
+        colorPanel.add(textSizeInput);
+    }
+
+    private void addForegroundColorChooser(JButton jButton, String frameText, Color color) {
+        inputField.setForeground(addColorChooser(jButton, frameText, color));
+        //inputField.repaint();
+    }
+
+    private void addBackgroundColorChooser(JButton jButton, String frameText, Color color) {
+        inputField.setBackground(addColorChooser(jButton, frameText, color));
+        //inputField.repaint();
+    }
+
+    private Color addColorChooser(JButton jButton, String frameText, Color color) {
+        Color newColor = JColorChooser.showDialog(this, frameText, color);
+        if(newColor != null) {
+            jButton.setBackground(newColor);
+            return newColor;
+        }
+        return color;
     }
 
     public void loadText(File selectedFile, JTextArea area) throws IOException {
@@ -151,6 +358,14 @@ public class GameEditor extends JFrame {
         }
     }
 
+    private void exportFile(String folderPath, String fileName, int foregroundRGB, int backgroundRGB, int textSize, String content) throws IOException {
+        Path filepath = Paths.get(folderPath + fileName);
+        FileOutputStream fos = new FileOutputStream(filepath.toString());
+        String export = "[" + foregroundRGB + "]\n[" + backgroundRGB + "]\n[" + textSize + "]\n" +  content;
+        fos.write(export.getBytes());
+        System.out.println("Export success! " + filepath);
+    }
+
     private void saveFile(String folderPath, String input) throws IOException {
         FileOutputStream fos = null;
         Path filepath = Paths.get(folderPath + "/hello.txt");
@@ -163,8 +378,8 @@ public class GameEditor extends JFrame {
             // Prompt the user if they want to override the existing file, and do nothing if they don't.
             System.out.println("Prompting for overriding.");
             int result = JOptionPane.showConfirmDialog(this,
-                    properties.getProperty("textFileOverridePrompt"),
-                    properties.getProperty("overrideNotice"),
+                    messageProperties.getProperty("textFileOverridePrompt"),
+                    messageProperties.getProperty("overrideNotice"),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null);

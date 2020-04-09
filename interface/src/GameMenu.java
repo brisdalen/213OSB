@@ -6,6 +6,9 @@ import java.util.Properties;
 
 public class GameMenu {
 
+    CustomProperties buttonProperties;
+    CustomProperties uiProperties;
+
     private ArrayList<JButton> gameLaunchers;
     private ArrayList<JButton> gameEditors;
     private String OS;
@@ -17,63 +20,21 @@ public class GameMenu {
 
     private int width = 300;
 
-    CustomProperties buttonProperties;
-    CustomProperties uiProperties;
-
     public GameMenu() {
         init();
     }
 
     private void init() {
-        // Initial variable initializations and property loading
-        gameLaunchers = new ArrayList<>();
-        gameEditors = new ArrayList<>();
-        OS = System.getProperty("os.name").toLowerCase();
+        initProperties();
+        initGUI();
+    }
+
+    private void initProperties() {
+        // Provide which folder in the resoures folder you want to use, and the up till the first '_'
         buttonProperties = new CustomProperties("buttons/ButtonText");
         uiProperties = new CustomProperties("uitext/UIText");
         loadProperty(buttonProperties);
         loadProperty(uiProperties);
-        // Panel, frame and button initializations
-        containerPanel = new JPanel();
-        containerPanel.setLayout(new BorderLayout());
-        frame = new JFrame("Game Menu");
-        frame.setMinimumSize(new Dimension(width, width/2));
-        // Game launcher panel initialization and adding all game launcher buttons
-        launchGamePanel = new JPanel();
-        launchGamePanel.setLayout(new FlowLayout());
-        try {
-            addGameLaunchers(launchGamePanel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Editing launcher panel initialization and adding all editor launcher buttons
-        launchEditPanel = new JPanel();
-        launchEditPanel.setLayout(new FlowLayout());
-        // Retrieve button and ui text from the property files and apply them to ui buttons and frames.
-        String launchText = buttonProperties.getProperty("launchEditor");
-        String frameText = uiProperties.getProperty("editorFrameTitle");
-
-        JButton launchEditor1 = new JButton(launchText + " 1");
-        launchEditor1.addActionListener(e -> openEditor(frameText + " 1"));
-        gameEditors.add(launchEditor1);
-
-        JButton launchEditor2 = new JButton(launchText + " 2");
-        launchEditor2.addActionListener(e -> openEditor(frameText + " 2"));
-        gameEditors.add(launchEditor2);
-
-        for(JButton b : gameEditors) {
-            launchEditPanel.add(b);
-        }
-
-        containerPanel.add(launchGamePanel, BorderLayout.CENTER);
-        containerPanel.add(launchEditPanel, BorderLayout.SOUTH);
-
-        frame.add(containerPanel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        // frame.pack() is very important, as the size of buttons change drasticly depending on which language is chosen.
-        frame.pack();
-        frame.setVisible(true);
     }
 
     private void loadProperty(CustomProperties properties) {
@@ -121,6 +82,54 @@ public class GameMenu {
         }
 
         language.close();
+    }
+
+    private void initGUI() {
+        // Initial variable initializations and property loading
+        gameLaunchers = new ArrayList<>();
+        gameEditors = new ArrayList<>();
+        OS = System.getProperty("os.name").toLowerCase();
+        // Panel, frame and button initializations
+        containerPanel = new JPanel();
+        containerPanel.setLayout(new BorderLayout());
+        frame = new JFrame(uiProperties.getProperty("menuFrameTitle"));
+        frame.setMinimumSize(new Dimension(width, width/2));
+        // ----- Game launcher panel initialization and adding all game launcher buttons
+        launchGamePanel = new JPanel();
+        launchGamePanel.setLayout(new FlowLayout());
+        try {
+            addGameLaunchers(launchGamePanel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        containerPanel.add(launchGamePanel, BorderLayout.CENTER);
+        // --------------- game launchers complete ---------------
+        // Editing launcher panel initialization and adding all editor launcher buttons
+        launchEditPanel = new JPanel();
+        launchEditPanel.setLayout(new FlowLayout());
+        // Retrieve button and ui text from the property files and apply them to ui buttons and frames.
+        String launchEditorText = buttonProperties.getProperty("launchEditor");
+        String frameEditorText = uiProperties.getProperty("editorFrameTitle");
+
+        JButton launchEditor1 = new JButton(launchEditorText + " 1");
+        launchEditor1.addActionListener(e -> openEditor(frameEditorText + " 1"));
+        gameEditors.add(launchEditor1);
+
+        JButton launchEditor2 = new JButton(launchEditorText + " 2");
+        launchEditor2.addActionListener(e -> openEditor(frameEditorText + " 2"));
+        gameEditors.add(launchEditor2);
+
+        for(JButton b : gameEditors) {
+            launchEditPanel.add(b);
+        }
+        containerPanel.add(launchEditPanel, BorderLayout.SOUTH);
+        // --------------- game editors complete ---------------
+        frame.add(containerPanel);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        // frame.pack() is very important, as the size of buttons change drastically depending on which language is chosen.
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private void addGameLaunchers(JPanel panel) throws Exception {
@@ -201,13 +210,13 @@ public class GameMenu {
         new GameEditor(title, frame);
     }
 
-    private boolean isWindows(String OS) {
+    public boolean isWindows(String OS) {
         return (OS.contains("win"));
     }
-    private boolean isMac(String OS) {
+    public boolean isMac(String OS) {
         return (OS.contains("mac"));
     }
-    private boolean isUnix(String OS) {
+    public boolean isUnix(String OS) {
         return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
     }
 
