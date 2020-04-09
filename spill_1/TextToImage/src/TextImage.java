@@ -21,14 +21,14 @@ import static java.awt.Color.*;
 public class TextImage {
 
 
-    //Method that change
+    //Method that create bufferedImage
     public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
     {
         //BufferedImage
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        //Lage bildet
+        //Create the image with G2D
         Graphics2D g2d = helperImg.createGraphics();
-        //Skrift type, FONT //PLAIN, BOLD, ITALIC
+        //TextType, FONT //PLAIN, BOLD, ITALIC
         Font font = new Font("Serif", Font.ITALIC, tSize);
         g2d.setFont(font);
         FontMetrics fm = g2d.getFontMetrics();
@@ -40,7 +40,8 @@ public class TextImage {
                 longestText = row+100;
             }
         }
-        int width = fm.stringWidth(longestText);
+        //Width behind the text
+        int width = fm.stringWidth(longestText + 10);
         int height = fm.getHeight()*textrows.length;
         g2d.dispose();
 
@@ -62,12 +63,12 @@ public class TextImage {
         g2d.setFont(font);
         fm = g2d.getFontMetrics();
 
-        //Skrift farge på skriften
+        //Text Color
         g2d.setColor(tColor);
         int y = fm.getAscent();
         for(String row: textrows)
         {
-            g2d.drawString(row, 20, y);
+            g2d.drawString(row, 25, y);  //Width in front of the text
             y += fm.getHeight();
         }
         g2d.dispose();
@@ -76,7 +77,7 @@ public class TextImage {
     }
 
     //Create file, if a file has same name the number++
-    //
+    //Method Create file need: bgcolor, text color, and text size
     public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
             String[] data = readFile("../TextInput/Test1.txt");
@@ -111,11 +112,7 @@ public class TextImage {
         return dataSplit;
     }
 
-
-
-
-
-
+    
 
     public static void main(String[] args) throws Exception {
         createFile(blue, green, 23);
