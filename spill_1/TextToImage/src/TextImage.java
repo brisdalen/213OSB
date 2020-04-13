@@ -1,16 +1,7 @@
-import javax.annotation.processing.Filer;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.xml.transform.Source;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -63,6 +54,8 @@ public class TextImage {
         g2d.setFont(font);
         fm = g2d.getFontMetrics();
 
+
+
         //Text Color
         g2d.setColor(tColor);
         int y = fm.getAscent();
@@ -96,12 +89,15 @@ public class TextImage {
             while ((newFile = new File(parent, name + index + extension)).exists()) {
             index++;
             }
-        ImageIO.write(bi, "png", newFile);
+            ImageIO.write(bi, "png", newFile);
+            //Not used yet, need more testing
+           // resize("../ImageOutput/" + newFile,"../ImageOutput/fix.png",1280,720, newFile);
+
 
         } catch (Exception e){
             e.printStackTrace();
         }
-
+        
     }
 
     //ReadFrom textFile and use the data as a String[] for creating picture
@@ -112,11 +108,35 @@ public class TextImage {
         return dataSplit;
     }
 
-    
+    public static BufferedImage resize(String inputImagePath, String outputImagePath, int scaledWidth, int scaledHeight, File newFile) throws IOException{
+        //read input image
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(newFile);
+
+        //create output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth, scaledHeight, inputImage.getType());
+
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+
+        //extract extension of output file
+        String formatName = outputImagePath.substring(outputImagePath.lastIndexOf(".")+1);
+
+        // writes to output file
+        ImageIO.write(outputImage, formatName, new File(outputImagePath));
+        
+        return outputImage;
+    }
+
+
 
     public static void main(String[] args) throws Exception {
         createFile(blue, green, 23);
     }
+
+
 
 
 }
