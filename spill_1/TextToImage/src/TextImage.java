@@ -1,16 +1,7 @@
-import javax.annotation.processing.Filer;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.xml.transform.Source;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,14 +12,14 @@ import static java.awt.Color.*;
 public class TextImage {
 
 
-    //Method that change
+    //Method that create bufferedImage
     public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
     {
         //BufferedImage
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-        //Lage bildet
+        //Create the image with G2D
         Graphics2D g2d = helperImg.createGraphics();
-        //Skrift type, FONT //PLAIN, BOLD, ITALIC
+        //TextType, FONT //PLAIN, BOLD, ITALIC
         Font font = new Font("Serif", Font.ITALIC, tSize);
         g2d.setFont(font);
         FontMetrics fm = g2d.getFontMetrics();
@@ -40,7 +31,8 @@ public class TextImage {
                 longestText = row+100;
             }
         }
-        int width = fm.stringWidth(longestText);
+        //Width behind the text
+        int width = fm.stringWidth(longestText + 10);
         int height = fm.getHeight()*textrows.length;
         g2d.dispose();
 
@@ -62,12 +54,14 @@ public class TextImage {
         g2d.setFont(font);
         fm = g2d.getFontMetrics();
 
-        //Skrift farge på skriften
+
+
+        //Text Color
         g2d.setColor(tColor);
         int y = fm.getAscent();
         for(String row: textrows)
         {
-            g2d.drawString(row, 20, y);
+            g2d.drawString(row, 25, y);  //Width in front of the text
             y += fm.getHeight();
         }
         g2d.dispose();
@@ -76,7 +70,7 @@ public class TextImage {
     }
 
     //Create file, if a file has same name the number++
-    //
+    //Method Create file need: bgcolor, text color, and text size
     public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
             String[] data = readFile("../TextInput/Test1.txt");
@@ -95,12 +89,15 @@ public class TextImage {
             while ((newFile = new File(parent, name + index + extension)).exists()) {
             index++;
             }
-        ImageIO.write(bi, "png", newFile);
+            ImageIO.write(bi, "png", newFile);
+            //Not used yet, need more testing
+           // resize("../ImageOutput/" + newFile,"../ImageOutput/fix.png",1280,720, newFile);
+
 
         } catch (Exception e){
             e.printStackTrace();
         }
-
+        
     }
 
     //ReadFrom textFile and use the data as a String[] for creating picture
@@ -111,15 +108,35 @@ public class TextImage {
         return dataSplit;
     }
 
+    public static BufferedImage resize(String inputImagePath, String outputImagePath, int scaledWidth, int scaledHeight, File newFile) throws IOException{
+        //read input image
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(newFile);
 
+        //create output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth, scaledHeight, inputImage.getType());
 
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
 
+        //extract extension of output file
+        String formatName = outputImagePath.substring(outputImagePath.lastIndexOf(".")+1);
+
+        // writes to output file
+        ImageIO.write(outputImage, formatName, new File(outputImagePath));
+        
+        return outputImage;
+    }
 
 
 
     public static void main(String[] args) throws Exception {
         createFile(blue, green, 23);
     }
+
+
 
 
 }
