@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static java.awt.Color.*;
@@ -13,9 +14,9 @@ public class TextImage {
 
 
     //Method that create bufferedImage
-    public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
+    public static BufferedImage make(Color bgColor, Color tColor, int tSize, ArrayList<String> textrows)
     {
-        //BufferedImage
+        //BufferedImage helper.
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
         //Create the image with G2D
         Graphics2D g2d = helperImg.createGraphics();
@@ -31,18 +32,23 @@ public class TextImage {
                 longestText = row+100;
             }
         }
-        //Width behind the text
-        int width = fm.stringWidth(longestText + 10);
-        int height = fm.getHeight()*textrows.length;
+
+//        int width = fm.stringWidth(longestText + 10);
+//        int height = fm.getHeight()*textrows.length;
         g2d.dispose();
 
+        int width = 500;
+        int height = 500;
 
+        //Final image, the image we going to see.
         BufferedImage finalImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         g2d = finalImg.createGraphics();
-        //Bakgrunn farge
+        //Background color.
         g2d.setColor(bgColor);
-        //Yrtre kantene på venstre og toppen
-        g2d.fillRect(1, 1, width, height);
+        //Rectangle fill.
+        g2d.fillRect(0, 0, width, height);
+
+        //Rendering and image quality.
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -54,9 +60,7 @@ public class TextImage {
         g2d.setFont(font);
         fm = g2d.getFontMetrics();
 
-
-
-        //Text Color
+        //Text Color.
         g2d.setColor(tColor);
         int y = fm.getAscent();
         for(String row: textrows)
@@ -73,10 +77,35 @@ public class TextImage {
     //Method Create file need: bgcolor, text color, and text size
     public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
-            String[] data = readFile("../TextInput/Test1.txt");
-            System.out.println(Arrays.toString(data));
-        //Text for the file
-        BufferedImage bi = make(bg, txt, tSize,data);
+            //Read file from path and split it by \n
+            String[] data = readFile();
+
+            ArrayList <String> temp = new ArrayList<>();
+
+            for(String s : data){
+                String[] data2 = splitByNumber(s);
+                for(String s2 : data2){
+                    temp.add(s2);
+                }
+            }
+
+
+//            //Gjøre om arraylist til en string
+//            String tempString = "";
+//
+//            for(String sentence : temp ){
+//                tempString += sentence;
+//                tempString += "\n";
+//                tempString += "\n";
+//            }
+//
+//            System.out.println(tempString);
+
+
+
+
+            //Text for the file
+        BufferedImage bi = make(bg, txt, tSize,temp);
         File newFile;
         int index = 1;
         //File path
@@ -101,13 +130,26 @@ public class TextImage {
     }
 
     //ReadFrom textFile and use the data as a String[] for creating picture
-    public static String[] readFile(String fileName)throws Exception {
-        String data = new String(Files.readAllBytes(Paths.get(fileName)));
+    public static String[] readFile()throws Exception {
+        String data = new String(Files.readAllBytes(Paths.get("../TextInput/Test1.txt")));
         //Spilt string and add lineshift
         String[] dataSplit = data.split("\n");
+        System.out.println(Arrays.toString(dataSplit));
         return dataSplit;
     }
 
+    //Split string after certain numbers.
+    public static String[] splitByNumber(String test) throws IOException {
+        int size = 45;
+        String[] numSplit = (size < 1 || test == null) ? null : test.split("(?<=\\G.{" + size + "})");
+        System.out.println(Arrays.toString(numSplit));
+
+        return numSplit;
+
+    }
+
+
+    //Resize and scaling method.
     public static BufferedImage resize(String inputImagePath, String outputImagePath, int scaledWidth, int scaledHeight, File newFile) throws IOException{
         //read input image
         File inputFile = new File(inputImagePath);
@@ -133,7 +175,7 @@ public class TextImage {
 
 
     public static void main(String[] args) throws Exception {
-        createFile(blue, green, 23);
+        createFile(blue, green, 24);
     }
 
 
