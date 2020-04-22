@@ -33,10 +33,9 @@ public class TextImage {
             }
         }
 
-//        int width = fm.stringWidth(longestText + 10);
-//        int height = fm.getHeight()*textrows.length;
         g2d.dispose();
 
+        //Image size
         int width = 500;
         int height = 500;
 
@@ -77,7 +76,7 @@ public class TextImage {
     //Method Create file need: bgcolor, text color, and text size
     public static void createFile(Color bg, Color txt, int tSize) throws IOException {
         try {
-            //Read file from path and split it by \n
+            //Read file from path and split it by \n and after certain amount of characters
             String[] data = readFile();
 
             ArrayList <String> temp = new ArrayList<>();
@@ -90,37 +89,23 @@ public class TextImage {
             }
 
 
-//            //Gjøre om arraylist til en string
-//            String tempString = "";
-//
-//            for(String sentence : temp ){
-//                tempString += sentence;
-//                tempString += "\n";
-//                tempString += "\n";
-//            }
-//
-//            System.out.println(tempString);
 
-
-
-
-            //Text for the file
+        //Text for the file
         BufferedImage bi = make(bg, txt, tSize,temp);
         File newFile;
         int index = 1;
-        //File path
+        //File path for image output
         String parent = "../ImageOutput";
-       //File name
+       //File name ( image name)
         String name = "File";
-        //File type
+        //File type (image type)
         String extension = ".png";
             //Loop that add file + number if the file has same name
             while ((newFile = new File(parent, name + index + extension)).exists()) {
             index++;
             }
             ImageIO.write(bi, "png", newFile);
-            //Not used yet, need more testing
-           // resize("../ImageOutput/" + newFile,"../ImageOutput/fix.png",1280,720, newFile);
+
 
 
         } catch (Exception e){
@@ -175,6 +160,7 @@ public class TextImage {
 
 
     public static void main(String[] args) throws Exception {
+        //create the image file
         createFile(blue, green, 24);
     }
 
