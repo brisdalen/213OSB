@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static java.awt.Color.*;
@@ -13,7 +14,7 @@ public class TextImage {
 
 
     //Method that create bufferedImage
-    public static BufferedImage make(Color bgColor, Color tColor, int tSize, String...textrows)
+    public static BufferedImage make(Color bgColor, Color tColor, int tSize, ArrayList<String> textrows)
     {
         //BufferedImage helper.
         BufferedImage helperImg = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
@@ -32,9 +33,12 @@ public class TextImage {
             }
         }
 
-        int width = fm.stringWidth(longestText + 10);
-        int height = fm.getHeight()*textrows.length;
+//        int width = fm.stringWidth(longestText + 10);
+//        int height = fm.getHeight()*textrows.length;
         g2d.dispose();
+
+        int width = 500;
+        int height = 500;
 
         //Final image, the image we going to see.
         BufferedImage finalImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -76,11 +80,32 @@ public class TextImage {
             //Read file from path and split it by \n
             String[] data = readFile();
 
-            //Split it again by the number of character
-            String[] data2 = splitByNumber("test");
+            ArrayList <String> temp = new ArrayList<>();
 
-        //Text for the file
-        BufferedImage bi = make(bg, txt, tSize,data);
+            for(String s : data){
+                String[] data2 = splitByNumber(s);
+                for(String s2 : data2){
+                    temp.add(s2);
+                }
+            }
+
+
+//            //Gjøre om arraylist til en string
+//            String tempString = "";
+//
+//            for(String sentence : temp ){
+//                tempString += sentence;
+//                tempString += "\n";
+//                tempString += "\n";
+//            }
+//
+//            System.out.println(tempString);
+
+
+
+
+            //Text for the file
+        BufferedImage bi = make(bg, txt, tSize,temp);
         File newFile;
         int index = 1;
         //File path
@@ -109,15 +134,13 @@ public class TextImage {
         String data = new String(Files.readAllBytes(Paths.get("../TextInput/Test1.txt")));
         //Spilt string and add lineshift
         String[] dataSplit = data.split("\n");
-//        int size = 5;
-//        String[] numSplit = (size < 1 || data == null) ? null : data.split("(?<=\\G.{" + size + "})");
         System.out.println(Arrays.toString(dataSplit));
         return dataSplit;
     }
 
     //Split string after certain numbers.
     public static String[] splitByNumber(String test) throws IOException {
-        int size = 6;
+        int size = 45;
         String[] numSplit = (size < 1 || test == null) ? null : test.split("(?<=\\G.{" + size + "})");
         System.out.println(Arrays.toString(numSplit));
 
