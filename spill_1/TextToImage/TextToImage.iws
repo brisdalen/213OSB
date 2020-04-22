@@ -88,6 +88,7 @@
       <workItem from="1585672523467" duration="3730000" />
       <workItem from="1586779422465" duration="5797000" />
       <workItem from="1587119536343" duration="7891000" />
+      <workItem from="1587585950671" duration="657000" />
     </task>
     <servers />
   </component>
@@ -100,26 +101,26 @@
     </state>
     <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585224061103" />
     <state x="690" y="239" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1583402975422" />
-    <state width="1866" height="296" key="GridCell.Tab.0.bottom" timestamp="1587141797226">
+    <state width="1866" height="296" key="GridCell.Tab.0.bottom" timestamp="1587586610026">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1869" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585677410564" />
-    <state width="1866" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1587141797226" />
-    <state width="1866" height="296" key="GridCell.Tab.0.center" timestamp="1587141797225">
+    <state width="1866" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1587586610026" />
+    <state width="1866" height="296" key="GridCell.Tab.0.center" timestamp="1587586610024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1869" height="296" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585677410564" />
-    <state width="1866" height="296" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1587141797225" />
-    <state width="1866" height="296" key="GridCell.Tab.0.left" timestamp="1587141797225">
+    <state width="1866" height="296" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1587586610024" />
+    <state width="1866" height="296" key="GridCell.Tab.0.left" timestamp="1587586610023">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1869" height="296" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585677410564" />
-    <state width="1866" height="296" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1587141797225" />
-    <state width="1866" height="296" key="GridCell.Tab.0.right" timestamp="1587141797226">
+    <state width="1866" height="296" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1587586610023" />
+    <state width="1866" height="296" key="GridCell.Tab.0.right" timestamp="1587586610024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1869" height="296" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585677410564" />
-    <state width="1866" height="296" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1587141797226" />
+    <state width="1866" height="296" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1587586610024" />
     <state width="1866" height="324" key="GridCell.Tab.1.bottom" timestamp="1587140031150">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -140,11 +141,11 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="352" y="98" key="SettingsEditor/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732234560" />
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1586779471653">
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog" timestamp="1587585971413">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1585672528667" />
-    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1586779471653" />
+    <state x="580" y="324" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1587585971413" />
     <state x="730" y="439" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583354787829">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -162,16 +163,5 @@
     </state>
     <state x="539" y="45" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1582732444374" />
     <state x="539" y="45" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1586781687989" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/TextImage.java</url>
-          <line>80</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
