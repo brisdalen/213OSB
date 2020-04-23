@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import static java.awt.Color.*;
 
@@ -38,7 +39,7 @@ public class TextImage {
         int width = 500;
         int height = 500;
 
-        //Final image, the image we going to see.
+        //Final image, the image we are going to see.
         BufferedImage finalImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         g2d = finalImg.createGraphics();
         //Background color.
@@ -73,10 +74,25 @@ public class TextImage {
 
     //Create file, if a file has same name the number++
     //Method Create file need: bgcolor, text color, and text size
-    public static void createFile(String filepath, Color bg, Color txt, int tSize) throws IOException {
+    public static void createFile(File file) throws IOException {
         try {
+            Scanner scanner = new Scanner(file);
+            String line = scanner.nextLine();
+            line = line.substring(1, line.length()-1);
+            int backgroundColCode = Integer.parseInt(line);
+            Color backgroundColor = new Color(backgroundColCode);
+
+            line = scanner.nextLine();
+            line = line.substring(1, line.length()-1);
+            int foregroundColCode = Integer.parseInt(line);
+            Color foregroundColor = new Color(foregroundColCode);
+
+            line = scanner.nextLine();
+            line = line.substring(1, line.length()-1);
+            int textSize = Integer.parseInt(line);
+
             //Read file from path and split it by \n and after certain amount of characters
-            String[] data = readFile(filepath);
+            String[] data = readFile(file.getAbsolutePath());
 
             ArrayList <String> temp = new ArrayList<>();
 
@@ -88,11 +104,11 @@ public class TextImage {
             }
 
         //Text for the file
-        BufferedImage bi = make(bg, txt, tSize,temp);
+        BufferedImage bi = make(backgroundColor, foregroundColor, textSize, temp);
         File newFile;
         int index = 1;
         //File path for image output
-        String parent = "../ImageOutput";
+        String parent = "../spill_1/ImageOutput";
        //File name ( image name)
         String name = "File";
         //File type (image type)
@@ -114,6 +130,11 @@ public class TextImage {
     //ReadFrom textFile and use the data as a String[] for creating picture
     public static String[] readFile(String filepath)throws Exception {
         String data = new String(Files.readAllBytes(Paths.get(filepath)));
+        // Remove the 3 first lines containing background color, foreground color and font size
+        for(int i = 0; i < 3; i++) {
+            data = data.substring(data.indexOf("]")+1);
+        }
+        data = data.trim();
         //Spilt string and add lineshift
         String[] dataSplit = data.split("\n");
         System.out.println(Arrays.toString(dataSplit));

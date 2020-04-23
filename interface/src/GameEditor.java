@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Scanner;
 
 public class GameEditor extends JFrame {
 
@@ -27,7 +28,7 @@ public class GameEditor extends JFrame {
 
     private JTextArea inputField;
     private Font font1;
-    private int initialFontSize = 16;
+    private int initialFontSize = 24;
     private int textSize = initialFontSize;
 
     private JPanel buttonPanel;
@@ -229,16 +230,16 @@ public class GameEditor extends JFrame {
 
         exportImageButton = new JButton(buttonProperties.getProperty("exportImage"));
         exportImageButton.addActionListener(e -> {
-            JFileChooser chooser = new JFileChooser();
+            JFileChooser chooser = new JFileChooser("../spill_1/TextInput");
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Text exports", "export");
             chooser.setFileFilter(filter);
 
             int returnVal = chooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
                 // Open and retrieve the path of the selected file
-                String filename = chooser.getSelectedFile().getName();
+                File selected = chooser.getSelectedFile();
                 try {
-                    TextImage.createFile(filename, backgroundColor, foregroundColor, textSize);
+                    TextImage.createFile(selected);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -382,7 +383,7 @@ public class GameEditor extends JFrame {
     private void exportFile(String folderPath, String fileName, int foregroundRGB, int backgroundRGB, int textSize, String content) throws IOException {
         Path filepath = Paths.get(folderPath + fileName + ".export");
         FileOutputStream fos = new FileOutputStream(filepath.toString());
-        String export = "[" + foregroundRGB + "]\n[" + backgroundRGB + "]\n[" + textSize + "]\n" + "[" + content + "]";
+        String export = "[" + backgroundRGB + "]\n[" + foregroundRGB+ "]\n[" + textSize + "]\n" + content;
         fos.write(export.getBytes());
         System.out.println("Export success! " + filepath);
     }
