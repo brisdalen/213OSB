@@ -12,7 +12,6 @@ import static java.awt.Color.*;
 
 public class TextImage {
 
-
     //Method that create bufferedImage
     public static BufferedImage make(Color bgColor, Color tColor, int tSize, ArrayList<String> textrows)
     {
@@ -88,8 +87,6 @@ public class TextImage {
                 }
             }
 
-
-
         //Text for the file
         BufferedImage bi = make(bg, txt, tSize,temp);
         File newFile;
@@ -133,7 +130,6 @@ public class TextImage {
 
     }
 
-
     //Resize and scaling method.
     public static BufferedImage resize(String inputImagePath, String outputImagePath, int scaledWidth, int scaledHeight, File newFile) throws IOException{
         //read input image
@@ -156,15 +152,4 @@ public class TextImage {
         
         return outputImage;
     }
-
-
-
-    public static void main(String[] args) throws Exception {
-        //create the image file
-        createFile("../TextInput/Test1.txt", blue, green, 24);
-    }
-
-
-
-
 }

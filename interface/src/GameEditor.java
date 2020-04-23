@@ -3,6 +3,7 @@ import jdk.nashorn.internal.scripts.JO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,6 +34,7 @@ public class GameEditor extends JFrame {
     private JButton saveButton;
     private JButton loadButton;
     private JButton exportTextButton;
+    private JButton exportImageButton;
 
     private JPanel colorPanel;
     private JLabel foregroundLabel;
@@ -225,11 +227,30 @@ public class GameEditor extends JFrame {
             }
         });
 
+        exportImageButton = new JButton(buttonProperties.getProperty("exportImage"));
+        exportImageButton.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Text exports", "export");
+            chooser.setFileFilter(filter);
+
+            int returnVal = chooser.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                // Open and retrieve the path of the selected file
+                String filename = chooser.getSelectedFile().getName();
+                try {
+                    TextImage.createFile(filename, backgroundColor, foregroundColor, textSize);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         buttonPanel = new JPanel();
         buttonPanel.setFocusable(true);
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
         buttonPanel.add(exportTextButton);
+        buttonPanel.add(exportImageButton);
     }
 
     private void initColorPanel() {
