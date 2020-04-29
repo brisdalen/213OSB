@@ -22,10 +22,11 @@ public class GameEditor extends JFrame {
 
     private JFrame parent;
     private JFrame thisFrame;
-    private int width = 600;
-    private int height = 400;
+    private int width = 530;
+    private int height = 500;
     private JPanel panel;
 
+    private JScrollPane scrollPane;
     private JTextArea inputField;
     private Font font1;
     private int initialFontSize = 24;
@@ -129,7 +130,7 @@ public class GameEditor extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setMinimumSize(new Dimension(width, height));
+        //setMinimumSize(new Dimension(width, height));
         // Main panel with the inputField initialization
         this.add(panel = new JPanel());
 
@@ -143,11 +144,11 @@ public class GameEditor extends JFrame {
         // --------------- Color panel complete ---------------
         // Adding all panels to the main panel
         panel.setLayout(new BorderLayout());
-        panel.add(inputField, BorderLayout.CENTER);
+        panel.add(scrollPane, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.SOUTH);
         panel.add(colorPanel, BorderLayout.EAST);
 
-        setLocation(parent.getX()-parent.getWidth()+parent.getWidth()/2, parent.getY()+parent.getHeight());
+        setLocation(parent.getX()-getWidth()+getWidth()/2, parent.getY()-(parent.getHeight()/2)-getHeight());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
         this.pack();
@@ -155,6 +156,9 @@ public class GameEditor extends JFrame {
 
     private void initInputField() {
         inputField = new JTextArea();
+        scrollPane = new JScrollPane(inputField);
+        scrollPane.setPreferredSize(new Dimension(width, height));
+        scrollPane.setMinimumSize(new Dimension(width, height));
         font1 = new Font(Font.SANS_SERIF, Font.PLAIN, initialFontSize);
         inputField.setFont(font1);
         inputField.setLineWrap(true);

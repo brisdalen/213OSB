@@ -128,10 +128,15 @@ public class GameMenu {
         // --------------- game editors complete ---------------
         frame.add(containerPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         // frame.pack() is very important, as the size of buttons change drastically depending on which language is chosen.
         frame.pack();
+        frame.setLocation(getScreenCenter());
         frame.setVisible(true);
+    }
+    // Calculates the cener point of the screen by the value returned as the screensize
+    private Point getScreenCenter() {
+        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        return new Point(screenDimension.width/2 - frame.getWidth()/2, screenDimension.height/2 - frame.getHeight()/2);
     }
 
     private void addGameLaunchers(JPanel panel) throws Exception {
