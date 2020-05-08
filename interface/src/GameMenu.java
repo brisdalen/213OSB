@@ -22,6 +22,10 @@ public class GameMenu {
 
     private int width = 300;
 
+    public static void main(String[] args) {
+        new GameMenu();
+    }
+
     public GameMenu() {
         init();
     }
@@ -241,9 +245,5 @@ public class GameMenu {
     }
     public boolean isUnix(String OS) {
         return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
-    }
-
-    public static void main(String[] args) {
-        new GameMenu();
     }
 }

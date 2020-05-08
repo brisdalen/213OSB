@@ -1,0 +1,20 @@
+[-16777216]
+[-16711936]
+[24]
+public static void main(String[] args) {
+	int x;
+	int y;
+	Scanner scanner = new Scanner(System.in);
+	
+	int x = Integer.parseInt(scanner.readLine());
+	int y = Integer.parseInt(scanner.readLine());
+	/*
+	Oida
+					Stoooor tabbe
+		Her går det ikke ann å scrolle
+
+		Kanskje jeg rekker å fikse det
+			Før vi skal levere
+			H									ehe..
+	*/
+}
