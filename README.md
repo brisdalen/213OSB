@@ -2,7 +2,7 @@ Welcome to the 213OSB wiki!
 
 This is a project for learning-based games, created in a course for Open Source development.
 
-### Table of content
+### Table of contents
 * Motivation
 * [The Developers](https://github.com/brisdalen/213OSB/wiki/The-Developers)
 * [The Interface](https://github.com/brisdalen/213OSB/wiki/The-Interface)
