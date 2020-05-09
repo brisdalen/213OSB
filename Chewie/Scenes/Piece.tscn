@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Script/Piece.gd" type="Script" id=1]
+[ext_resource path="res://Pictures/File52.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 40 )
+
+[node name="Piece" type="KinematicBody2D" groups=[
+"piece",
+]]
+editor/display_folded = true
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 40, 40 )
+scale = Vector2( 0.480925, 0.481054 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 40, 40 )
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 40, 40 )
+cast_to = Vector2( 0, 80 )
