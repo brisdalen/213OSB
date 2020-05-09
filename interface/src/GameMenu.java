@@ -154,18 +154,18 @@ public class GameMenu {
             if(os.equals(Constants.WINDOWS)) {
                 //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
                 //TODO: Flytte hver executable inn i en egen mappe, for hver os
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/windows/runTest.exe"));
-                launchGame2.addActionListener(e -> launchGame(findGamePath() + "/spill_4/windows/game4.exe"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/windows/Puzzle game.exe"));
+                launchGame2.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/windows/Puzzle game.exe"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/macOS/runTest.app"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/mac/Puzzle game.app"));
                 //TODO: Endre feilbeskjed til property
                 launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for mac"));
                 printGamePath();
 
             } else if(os.equals(Constants.UNIX)) {
-                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/test/unix/runTest"));
+                launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/linux/Puzzle game.x86_64"));
                 launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for unix"));
                 printGamePath();
 
