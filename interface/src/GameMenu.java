@@ -144,7 +144,7 @@ public class GameMenu {
     }
 
     private void addGameLaunchers(JPanel panel) throws Exception {
-        //TODO: Lettere å legge til flere games?
+        //TODO: Make it easier to add a game
         JButton launchGame1 = new JButton(buttonProperties.getProperty("launchGame") + " 1");
         JButton launchGame2 = new JButton(buttonProperties.getProperty("launchGame") + " 2");
         // Retrieve the operating system name to open the right executable.
@@ -152,15 +152,13 @@ public class GameMenu {
         if (os != null) {
             // Find and open the right file depending on the operating system, when you click the launching button.
             if(os.equals(Constants.WINDOWS)) {
-                //TODO: Finne path til fil, og prøve å tracke endringer om filen flyttes
-                //TODO: Flytte hver executable inn i en egen mappe, for hver os
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/windows/Puzzle game.exe"));
-                launchGame2.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/windows/Puzzle game.exe"));
+                launchGame2.addActionListener(e -> launchGame(findGamePath() + "Game not exported for windows"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/mac/Puzzle game.app"));
-                //TODO: Endre feilbeskjed til property
+                //TODO: Change error message to property
                 launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for mac"));
                 printGamePath();
 

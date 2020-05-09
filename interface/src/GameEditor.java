@@ -75,7 +75,7 @@ public class GameEditor extends JFrame {
         loadProperty(messageProperties);
     }
 
-    //TODO: static metode eller fra en Utility klasse
+    //TODO: change to static method or use a Utility class?
     private void loadProperty(CustomProperties properties) {
         try {
             // When I tried to use the same FileInputStream for 2 properties, it didn't work.
@@ -90,7 +90,7 @@ public class GameEditor extends JFrame {
             e.printStackTrace();
         }
     }
-    //TODO: static metode eller fra en Utility klasse
+    //TODO: change to static method or use a Utility class?
     // Load a language pack based on what is selected in the config properties file
     // i.e. Constants.ENGLISH_UK selects the en_UK_standard language package
     private void loadLanguagePack(String chosenLanguage, CustomProperties properties) throws IOException {
@@ -101,7 +101,7 @@ public class GameEditor extends JFrame {
         String prefix = "resources/" + properties.getName() + "_";
         loadLanguage(chosenLanguage, prefix, properties);
     }
-    //TODO: static metode eller fra en Utility klasse
+    //TODO: change to static method or use a Utility class?
     static void loadLanguage(String chosenLanguage, String prefix, Properties properties) throws IOException {
         String suffix = ".properties";
         Reader language = null;
@@ -175,7 +175,7 @@ public class GameEditor extends JFrame {
         });
 
         loadButton = new JButton(buttonProperties.getProperty("loadText"));
-        //TODO: kanskje refactore til egen klasse?
+        //TODO: Maybe refactor into its own class?
         loadButton.addActionListener(e -> {
             try {
                 JFileChooser fileChooser;
@@ -197,7 +197,7 @@ public class GameEditor extends JFrame {
                         }
                     } else {
                         // This sets the lastOpened path for the first time it runs
-                        //TODO: Lagre lastOpened i en config fil?
+                        //TODO: Save lastOpened to a config file?
                         lastOpened = Paths.get(opened);
                     }
                     // Load the content of the selected file to the textarea
