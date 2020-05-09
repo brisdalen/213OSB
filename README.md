@@ -1,7 +1,7 @@
 This is a project for learning-based games, created in a course for Open Source development.
 
 ### Table of contents
-* [Motivation](https://github.com/brisdalen/213OSB/wiki/Motivation)
+* [Motivation](https://github.com/brisdalen/213OSB/blob/master/README.md#motivation)
 * [The Developers](https://github.com/brisdalen/213OSB/wiki/The-Developers)
 * [The Interface](https://github.com/brisdalen/213OSB/wiki/The-Interface)
 * [Game 1 - Puzzle Game](https://github.com/brisdalen/213OSB/wiki/Game-1---Puzzle-game)
