@@ -3,15 +3,15 @@ This is a project for learning-based games, created in a course for Open Source 
 ### Table of contents
 * [Motivation](https://github.com/brisdalen/213OSB/blob/master/README.md#motivation)
 * [The Developers](https://github.com/brisdalen/213OSB/blob/master/README.md#the-developers)
-* [The Interface](https://github.com/brisdalen/213OSB/wiki/The-Interface)
-* [Game 1 - Puzzle Game](https://github.com/brisdalen/213OSB/wiki/Game-1---Puzzle-game)
-* [Install & running](https://github.com/brisdalen/213OSB/wiki/Install-&-running)
-* [Softwares & Technologies](https://github.com/brisdalen/213OSB/wiki/Softwares-&-Technologies)
-* [How to contribute](https://github.com/brisdalen/213OSB/wiki/How-to-contribute)
+* [The Interface](https://github.com/brisdalen/213OSB/blob/master/README.md#the-interface)
+* [Game 1 - Puzzle Game](https://github.com/brisdalen/213OSB/blob/master/README.md#game-1---puzzle-game)
+* [Install & running](https://github.com/brisdalen/213OSB/blob/master/README.md#install--running)
+* [Softwares & Technologies](https://github.com/brisdalen/213OSB/blob/master/README.md#Softwares--Technologies)
+* [How to contribute](https://github.com/brisdalen/213OSB/blob/master/README.md#How-to-contribute)
 * [List of contributors](https://github.com/brisdalen/213OSB/wiki/List-of-contributors)
-* [Future Plans](https://github.com/brisdalen/213OSB/wiki/Future-Plans)
-* [License](https://github.com/brisdalen/213OSB/wiki/License)
-* [Third-party licenses](https://github.com/brisdalen/213OSB/wiki/Third-Party-Licenses)
+* [Future Plans](https://github.com/brisdalen/213OSB/blob/master/README.md#Future-Plans)
+* [License](https://github.com/brisdalen/213OSB/blob/master/README.md#License)
+* [Third-party licenses](https://github.com/brisdalen/213OSB/blob/master/README.md#Third-Party-Licenses)
 
 ## Motivation
 ![Motivation (picture)](https://strangecart.com/wp-content/uploads/2020/02/m4.jpg)
