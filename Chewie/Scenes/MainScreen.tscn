@@ -8,6 +8,8 @@
 [node name="MainScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -564.0
+margin_bottom = -117.0
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -22,10 +24,10 @@ texture = ExtResource( 1 )
 modulate = Color( 0.784314, 0.301961, 0.301961, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -389.391
-margin_top = 90.9272
-margin_right = -215.391
-margin_bottom = 129.927
+margin_left = 173.49
+margin_top = 123.908
+margin_right = 347.49
+margin_bottom = 162.908
 text = "Open Source Puzzle Game"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

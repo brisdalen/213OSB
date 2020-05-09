@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Script/Puzzle 1.gd" type="Script" id=1]
 [ext_resource path="res://Pictures/Frame1.png" type="Texture" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://Pictures/Background.jpg" type="Texture" id=5]
 [ext_resource path="res://Pictures/149-1494847_chewbacca-pixel-art-han-solo.png" type="Texture" id=6]
 [ext_resource path="res://Script/Demo.gd" type="Script" id=7]
+[ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 8 )
 
 [node name="PUZZLE" type="Node2D"]
 position = Vector2( 30, 10 )
@@ -48,19 +53,20 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 924.0
+margin_left = 925.0
 margin_top = 38.0
-margin_right = 1065.0
+margin_right = 1066.0
 margin_bottom = 81.0
 custom_fonts/font = ExtResource( 4 )
 text = "Try Demo"
 script = ExtResource( 7 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 426.156
-margin_top = 47.8598
-margin_right = 677.156
-margin_bottom = 93.8598
+margin_left = 332.228
+margin_top = 53.078
+margin_right = 787.228
+margin_bottom = 99.078
+custom_fonts/font = SubResource( 1 )
 text = "This is how the puzzle should look like!"
 
 [node name="Label2" type="Label" parent="."]
@@ -76,5 +82,11 @@ margin_top = 52.3325
 margin_right = 1101.88
 margin_bottom = 127.333
 text = "Test Demo"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 14.28, 10.08 )
+anchor_mode = 0
+current = true
+zoom = Vector2( 1.25, 1.11 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="button_up" from="Demo" to="Demo" method="_on_Demo_button_up"]

@@ -16,12 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="OSB-Spill_1"
-run/main_scene="res://Scenes/Puzzle 1.tscn"
+run/main_scene="res://Scenes/MainScreen.tscn"
 config/icon="res://Pictures/149-1494847_chewbacca-pixel-art-han-solo.png"
 
 [display]
 
-window/size/width=1421
+window/size/width=852
+window/size/height=480
 
 [gui]
 
