@@ -8,7 +8,7 @@ This is a project for learning-based games, created in a course for Open Source 
 * [Install & running](https://github.com/brisdalen/213OSB/blob/master/README.md#install--running)
 * [Softwares & Technologies](https://github.com/brisdalen/213OSB/blob/master/README.md#Softwares--Technologies)
 * [How to contribute](https://github.com/brisdalen/213OSB/blob/master/README.md#How-to-contribute)
-* [List of contributors](https://github.com/brisdalen/213OSB/wiki/List-of-contributors)
+* [List of contributors](https://github.com/brisdalen/213OSB/blob/master/README.md#List-of-contributors)
 * [Future Plans](https://github.com/brisdalen/213OSB/blob/master/README.md#Future-Plans)
 * [License](https://github.com/brisdalen/213OSB/blob/master/README.md#License)
 * [Third-party licenses](https://github.com/brisdalen/213OSB/blob/master/README.md#Third-Party-Licenses)
