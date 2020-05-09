@@ -16,13 +16,16 @@ _global_script_class_icons={
 [application]
 
 config/name="OSB-Spill_1"
-run/main_scene="res://Game.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/Puzzle 1.tscn"
+config/icon="res://Pictures/149-1494847_chewbacca-pixel-art-han-solo.png"
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=1421
+
+[gui]
+
+theme/custom_font="res://Scenes/Fonts/new_dynamicfont.tres"
 
 [input]
 
@@ -31,3 +34,7 @@ click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[rendering]
+
+environment/default_clear_color=Color( 0.458824, 0.552941, 0.572549, 1 )

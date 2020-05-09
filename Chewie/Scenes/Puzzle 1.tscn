@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Script/Puzzle 1.gd" type="Script" id=1]
+[ext_resource path="res://Pictures/Frame1.png" type="Texture" id=2]
+[ext_resource path="res://Pictures/File52.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/montserrat_eb_24.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Pictures/Background.jpg" type="Texture" id=5]
+[ext_resource path="res://Pictures/149-1494847_chewbacca-pixel-art-han-solo.png" type="Texture" id=6]
+[ext_resource path="res://Script/Demo.gd" type="Script" id=7]
+
+[node name="PUZZLE" type="Node2D"]
+position = Vector2( 30, 10 )
+script = ExtResource( 1 )
+
+[node name="Frame" type="Sprite" parent="."]
+position = Vector2( 557.067, 242.274 )
+scale = Vector2( 0.360904, 0.422231 )
+texture = ExtResource( 2 )
+
+[node name="Picture" type="Sprite" parent="."]
+position = Vector2( 557.492, 242.582 )
+scale = Vector2( 0.584011, 0.446499 )
+texture = ExtResource( 3 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 498.401
+margin_top = 449.008
+margin_right = 617.401
+margin_bottom = 492.008
+custom_fonts/font = ExtResource( 4 )
+text = "Shuffle"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="Sprite" parent="ParallaxBackground"]
+editor/display_folded = true
+position = Vector2( 565.073, 301.026 )
+scale = Vector2( 1.3282, 1.24792 )
+texture = ExtResource( 5 )
+
+[node name="149-1494847_chewbacca-pixel-art-han-solo" type="Sprite" parent="ParallaxBackground/Sky"]
+position = Vector2( -305.639, -10.3636 )
+scale = Vector2( 0.309723, 0.267833 )
+texture = ExtResource( 6 )
+
+[node name="Demo" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 924.0
+margin_top = 38.0
+margin_right = 1065.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "Try Demo"
+script = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 426.156
+margin_top = 47.8598
+margin_right = 677.156
+margin_bottom = 93.8598
+text = "This is how the puzzle should look like!"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 533.655
+margin_top = 461.434
+margin_right = 650.655
+margin_bottom = 502.434
+text = "Shuffle"
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 953.875
+margin_top = 52.3325
+margin_right = 1101.88
+margin_bottom = 127.333
+text = "Test Demo"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="button_up" from="Demo" to="Demo" method="_on_Demo_button_up"]
