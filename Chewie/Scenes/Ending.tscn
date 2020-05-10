@@ -1,17 +1,18 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Script/Ending.gd" type="Script" id=1]
 [ext_resource path="res://Pictures/Background.jpg" type="Texture" id=2]
-[ext_resource path="res://Pictures/Frame1.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Spot.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Piece.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Script/Piece2.gd" type="Script" id=7]
-[ext_resource path="res://Pictures/File52.png" type="Texture" id=8]
-[ext_resource path="res://Fonts/montserrat_eb_24.tres" type="DynamicFont" id=9]
-[ext_resource path="res://Script/Button.gd" type="Script" id=10]
-[ext_resource path="res://Fonts/new_dynamicfont.tres" type="DynamicFont" id=11]
-[ext_resource path="res://Script/Button2.gd" type="Script" id=12]
+[ext_resource path="res://Pictures/ArrowKey.png" type="Texture" id=3]
+[ext_resource path="res://Pictures/Frame1.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Spot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Piece.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Script/Piece2.gd" type="Script" id=8]
+[ext_resource path="res://Pictures/File52.png" type="Texture" id=9]
+[ext_resource path="res://Fonts/montserrat_eb_24.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Script/Button.gd" type="Script" id=11]
+[ext_resource path="res://Fonts/new_dynamicfont.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Script/Button2.gd" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
@@ -22,64 +23,90 @@ script = ExtResource( 1 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 441.086, 299.748 )
+position = Vector2( 689.145, 355.77 )
 scale = Vector2( 1.03521, 1.23334 )
 texture = ExtResource( 2 )
+offset = Vector2( -239.622, -45.7534 )
+
+[node name="ArrowKey" type="Sprite" parent="."]
+position = Vector2( 778.324, 439.849 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="ArrowKey2" type="Sprite" parent="."]
+position = Vector2( 777.793, 492.419 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+flip_v = true
+
+[node name="ArrowKey4" type="Sprite" parent="."]
+position = Vector2( 832.793, 492.419 )
+rotation = -1.5708
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+flip_v = true
+
+[node name="ArrowKey3" type="Sprite" parent="."]
+position = Vector2( 722.793, 492.419 )
+rotation = 1.5708
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+flip_v = true
 
 [node name="Frame" type="Sprite" parent="."]
 position = Vector2( 359.867, 280.249 )
 scale = Vector2( 0.298752, 0.456436 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 640, 160.073 )
 
 [node name="Spots" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Spot" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 240, 159.927 )
 
-[node name="Spot2" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot2" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 320, 160 )
 
-[node name="Spot3" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot3" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 400, 160.073 )
 
-[node name="Spot4" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot4" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 239.917, 239.928 )
 
-[node name="Spot5" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot5" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 320, 240.03 )
 
-[node name="Spot6" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot6" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 400.166, 240.03 )
 
-[node name="Spot7" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot7" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 240, 319.928 )
 
-[node name="Spot8" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot8" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 320, 319.885 )
 
-[node name="Spot9" parent="Spots" instance=ExtResource( 5 )]
+[node name="Spot9" parent="Spots" instance=ExtResource( 6 )]
 position = Vector2( 400, 320.03 )
 
 [node name="Pieces" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Piece" parent="Pieces" instance=ExtResource( 6 )]
+[node name="Piece" parent="Pieces" instance=ExtResource( 7 )]
 position = Vector2( 160, 80 )
 
 [node name="Piece 2" type="KinematicBody2D" parent="Pieces" groups=[
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 2"]
 position = Vector2( 360, 120.073 )
 scale = Vector2( 0.481928, 0.481928 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 vframes = 3
 hframes = 3
 frame = 1
@@ -96,12 +123,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 3"]
 position = Vector2( 480, 160.073 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -119,12 +146,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 4"]
 position = Vector2( 80, 240.073 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -142,12 +169,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 5"]
 position = Vector2( 319.917, 240 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -165,12 +192,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 6"]
 position = Vector2( 560, 320 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -188,12 +215,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 7"]
 position = Vector2( 80, 400 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -210,12 +237,12 @@ cast_to = Vector2( 0, 80 )
 [node name="Piece 8" type="KinematicBody2D" parent="Pieces" groups=[
 "piece",
 ]]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 8"]
 position = Vector2( 319.917, 480 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -233,12 +260,12 @@ cast_to = Vector2( 0, 80 )
 "piece",
 ]]
 editor/display_folded = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Pieces/Piece 9"]
 position = Vector2( 400, 320 )
 scale = Vector2( 0.482999, 0.481671 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 centered = false
 vframes = 3
 hframes = 3
@@ -267,18 +294,18 @@ margin_left = 44.0
 margin_top = 535.0
 margin_right = 163.0
 margin_bottom = 569.0
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 text = "Previous Page"
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="Button2" type="Button" parent="Buttons"]
 margin_left = 715.0
 margin_top = 526.331
 margin_right = 840.0
 margin_bottom = 561.331
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 12 )
 text = "End Game"
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
 [node name="Label" type="Label" parent="Buttons"]
 margin_left = 74.8551
@@ -293,6 +320,11 @@ margin_top = 534.655
 margin_right = 929.635
 margin_bottom = 595.655
 text = "End Game"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+zoom = Vector2( 1.04, 1.24 )
 [connection signal="confirmed" from="AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
 [connection signal="button_up" from="Buttons/Button" to="Buttons/Button" method="_on_Button_button_up"]
 [connection signal="button_up" from="Buttons/Button2" to="Buttons/Button2" method="_on_Button2_button_up"]

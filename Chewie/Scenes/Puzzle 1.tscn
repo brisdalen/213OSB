@@ -38,13 +38,13 @@ text = "Shuffle"
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Sky" type="Sprite" parent="ParallaxBackground"]
-editor/display_folded = true
-position = Vector2( 565.073, 301.026 )
+position = Vector2( 952.371, 409.238 )
 scale = Vector2( 1.3282, 1.24792 )
 texture = ExtResource( 5 )
+offset = Vector2( -291.596, -86.7142 )
 
 [node name="149-1494847_chewbacca-pixel-art-han-solo" type="Sprite" parent="ParallaxBackground/Sky"]
-position = Vector2( -305.639, -10.3636 )
+position = Vector2( -551.639, -110.997 )
 scale = Vector2( 0.309723, 0.267833 )
 texture = ExtResource( 6 )
 
