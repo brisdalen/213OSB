@@ -9,7 +9,7 @@ This is a project for learning-based games, created in a course for Open Source 
 * [Softwares & Technologies](https://github.com/brisdalen/213OSB/blob/master/README.md#Softwares--Technologies)
 * [How to contribute](https://github.com/brisdalen/213OSB/blob/master/README.md#How-to-contribute)
 * [List of contributors](https://github.com/brisdalen/213OSB/blob/master/README.md#List-of-contributors)
-* [Future Plans](https://github.com/brisdalen/213OSB/blob/master/README.md#Future-Plans)
+* [Future Plans and Improvements](https://github.com/brisdalen/213OSB/blob/master/README.md#Future-Plans-and-Improvements)
 * [License](https://github.com/brisdalen/213OSB/blob/master/README.md#License)
 * [Third-party licenses](https://github.com/brisdalen/213OSB/blob/master/README.md#Third-Party-Licenses)
 
@@ -114,16 +114,23 @@ We hope to see some exciting game ideas from you!
 ## List of contributors
 Click [here](https://github.com/brisdalen/213OSB/wiki/List-of-contributors) to see the list of contributors
 
-## Future Plans
+## Future plans and Improvements
+
 ### Game Ideas
-Our future plan is to create other types of games that could be interesting. As we mention we have created some draft of our ideas and we may try to create it.
+Our future plan is to create other types of games that could be interesting. As we mention we have created some drafts of our ideas and we may try to create them at a later time. As the first game, we like ideas that could be used for more than just computer science based learning games.
 
 ![Future game ideas 1](https://i.gyazo.com/471d66d6144282c93bb107cceed83ff9.png)
 
-### Future improvements
-* Text to Image:
+
+### Interface
+* The process of adding new games to the interface is not good. First of all, you need to add a JButton, add a listener with the correct path, and finally add it to the list of launchers. That is at least 3 different places where things can go wrong, so an obvious improvement to this system is to simplify and make it easier to add games to the interface. One solution could be that you have to add your exported game into its own folder, and then add that folder to a list of games, that would be parsed by the interface. The same issue is present for the game editors as well.
+
+### Text to Image:
 * Right now, the text to image feature just converts the picture into a chosen size. It could be improved and make the size more flexible, and that user can change the size themselves. 
 * The same with the text. It could be better if it could be scale smarter. These pictures are based on the text file created by users. It converts the line into String[] (String array), and these String[] has a maximum length that cannot surpass a specific number. If it passes that number, it will be created into a new String[] and present on a newline. It also detects \n (newline) that created a newline into the picture.
+
+### Godot
+* There are hundreds of built-in functions in Godot. You can change colors, sizes and fonts. Our plans further are to be able to create multiple levels and increase the difficulty level of the game. Next, we want to make a drag and drop function. We have a type of drag and drop in our "Demo", but we do not have an accept button. One other thing we want to implement is a "restart" button on the last page. That would make the game more flexible. Last we want to add a function that checks if the right puzzle piece is in the right spot. We think we have implemented the most important functions. The next step will be to make the game better in a more visible way. 
 
 ## License
 This project is licensed under the MIT license. We have chosen this license due to how non-restrictive, clear and readable it is. 
