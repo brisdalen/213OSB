@@ -61,6 +61,29 @@ To run the project, do either A or B:
 * 4.1 To change the chosen language, change the current directory to the settings folder, open the config.properties file in your chosen text editor (i.e. vim or nano) and change the value of the language property to 'no', 'en_uk' or any other supported language, depending on which language you want the interface to run.
 5. The graphical user interface will now be opened.
 
+The idea of game 1 was inspired by various puzzle games.
+
+We drafted some of our ideas and started to create one of the following ideas later.
+The one under is something we want to create. It’s some kind of puzzle that is moveable and needs to be restored in the right position to get some points.
+![Game 1 - Draft1](https://i.gyazo.com/387952f38a6be37738822418783b450e.png)
+
+
+The first game is to create a similar type of puzzle that people can write in their sentences and make it into a puzzle. The puzzle game is created from a text file that gets converted into a picture. The picture then gets shuffle, and the player needs to move it back to the right position.
+
+![the process](https://i.gyazo.com/04a6f596fb999df8ad3dee03d7743a36.png)
+
+The player or creator will get an [interface](https://github.com/brisdalen/213OSB/wiki/The-Interface) window after starting the application where they can choose between create/edit the existed text file that the puzzle is based on or launching the game and play.
+
+Pressing "launch game 1" will open the puzzle game!
+
+![The puzzle game starting screen](https://i.imgur.com/t1Uwj2Y.png)
+
+This is the in-game interface. If you press the "New Game" button the game starts because we have connected the button to the next scene. If you press the "Quit" button you close the game window.  
+
+![The Game itself](https://i.imgur.com/wII6FD8.png)
+
+This is our "main scene" for the puzzle game. We have created a player that can push the different pieces in the right place so the puzzle becomes complete. You can move the player with your arrow keys. In order to make the game a little more difficult, you cannot push multiple pieces at the same time. When you have pushed all the pieces in the right spot, you get a popup message that says you have completed the level. We have also created a "Demo" puzzle. The idea behind this scene is that the users can test the puzzle game with a "drag and drop" function. When all the pieces are in the frame, you do not get a message that says you have completed a level. 
+
 ## Software & Technologies
 ### Game engine
 ![Godot(Picture)](https://godotengine.org/themes/godotengine/assets/logo.svg)
