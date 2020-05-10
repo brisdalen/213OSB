@@ -75,7 +75,7 @@ design, and looking good in both 2D and 3D game creation. The platform allowed u
 We also use [Java](oracle.com/java/technologies/javase-downloads.html) 11 or higher.
 The reason we choose to use Java is that the team feels most comfortable using it since we all have the same background learning the language.
 
-## How to contribute
+### How to contribute
 Now the exciting question everybody is dying to know the answer to: How do I contribute to this wonderful open source project!? You have certainly found the correct wiki page for that!
 
 ### Requirements
@@ -96,6 +96,20 @@ To contribute to the project, you would have to follow our internal development 
 4. Send a pull request to the main repository's 'dev' branch (`brisdalen/dev`) with either self-explanatory commit messages or comments otherwise.
 5. We will review your pull requests, and try to get in contact with you if there are changes we have questions about (firstly as review-comments on the pull request itself). 
 6. If the review is successful, we will accept the pull request and add you to the [list of contributors!](https://github.com/brisdalen/213OSB/wiki/List-of-contributors)
+
+![The workflow model illustrated](https://i.gyazo.com/56b1908bad25363bf6e99d42eae44468.png)
+
+### To add new games to the project
+1. First of all, you need to create your game, in either Godot or Java, but we recommend Godot. Create the game in its own folder inside the cloned repository.
+2. After your game is finished, create an Exports folder, and create separate folders for which operating systems you want your game to be for. In Godot it is very simple to export your game for Windows, macOS and linux systems, so if your game is made in Godot, create a `windows`, `mac` and `linux` folder, and export versions into the corresponding folder.
+* 2.1 We have not added support for pure-java games yet, but assume you could add your game classes in its own package and call it as long as you have some sort of "startGame()" method that can easily be called upon.
+3. After your game is successfully exported, you need to add a JButton in the `private void addGameLaunchers` method found in `GameMenu.java`.
+4. After adding the initial button, you have to add a listener with the correct path under every operating system check. If you haven't exported it for one of the operating systems, you can use the following line:  
+`<button name>.addActionListener(e -> notSupportedError("<the OS not supported>"));`, where you replace `<button name>` with the JButton variable name declared in step 3, and `<the OS not supported>` with the operating system you have not exported your game for. An example from the source code:  
+`launchGame2.addActionListener(e -> notSupportedError("windows"));`
+5. Finally, you have to add the new launcher to the list of launchers, currently found before the for-each loop in the `private void addGameLaunchers` method. as of commit ID [`afa4891`](https://github.com/brisdalen/213OSB/tree/afa4891f448994135f60b2a70ce17bc90197bb69), this can be seen at line 173 and 174 in `interface/src/GameMenu.java`.
+
+We hope to see some exciting game ideas from you!
 
 ## List of contributors
 Click [here](https://github.com/brisdalen/213OSB/wiki/List-of-contributors) to see the list of contributors
