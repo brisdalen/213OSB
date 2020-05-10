@@ -39,28 +39,6 @@ The game editor for our puzzle game
 
 ## Game 1 - Puzzle Game
 
-## Install & Running
-There are 3 simple steps to install this project.
-1. Install the latest [Java version](https://www.java.com/en/download/)
-2. Install the [Godot game engine](https://godotengine.org/)
-3. Clone the 213OSB repository
-
-To run the project, do either A or B:
-### A - the GUI way
-1. Locate the cloned repository
-2. Open the repository and then open the interface folder
-3. Double-click the 'interface.jar' file to open the interface
-* 3.1 To change the chosen language, open the settings folder and open the config.properties file in your chosen text editor (i.e. notepad or sublime text) and change the value of the language property to 'no', 'en_uk' or any other supported language, depending on which language you want the interface to run.
-4. The graphical user interface will now be opened.
-
-### B - the CLI way
-1. Open a command terminal of your choosing
-2. Locate the cloned repository
-3. Change the current directory to the 'interface' folder
-4. Run the following command: `java -jar interface`
-* 4.1 To change the chosen language, change the current directory to the settings folder, open the config.properties file in your chosen text editor (i.e. vim or nano) and change the value of the language property to 'no', 'en_uk' or any other supported language, depending on which language you want the interface to run.
-5. The graphical user interface will now be opened.
-
 The idea of game 1 was inspired by various puzzle games.
 
 We drafted some of our ideas and started to create one of the following ideas later.
@@ -83,6 +61,28 @@ This is the in-game interface. If you press the "New Game" button the game start
 ![The Game itself](https://i.imgur.com/wII6FD8.png)
 
 This is our "main scene" for the puzzle game. We have created a player that can push the different pieces in the right place so the puzzle becomes complete. You can move the player with your arrow keys. In order to make the game a little more difficult, you cannot push multiple pieces at the same time. When you have pushed all the pieces in the right spot, you get a popup message that says you have completed the level. We have also created a "Demo" puzzle. The idea behind this scene is that the users can test the puzzle game with a "drag and drop" function. When all the pieces are in the frame, you do not get a message that says you have completed a level. 
+
+## Install & Running
+There are 3 simple steps to install this project.
+1. Install the latest [Java version](https://www.java.com/en/download/)
+2. Install the [Godot game engine](https://godotengine.org/)
+3. Clone the 213OSB repository
+
+To run the project, do either A or B:
+### A - the GUI way
+1. Locate the cloned repository
+2. Open the repository and then open the interface folder
+3. Double-click the 'interface.jar' file to open the interface
+* 3.1 To change the chosen language, open the settings folder and open the config.properties file in your chosen text editor (i.e. notepad or sublime text) and change the value of the language property to 'no', 'en_uk' or any other supported language, depending on which language you want the interface to run.
+4. The graphical user interface will now be opened.
+
+### B - the CLI way
+1. Open a command terminal of your choosing
+2. Locate the cloned repository
+3. Change the current directory to the 'interface' folder
+4. Run the following command: `java -jar interface`
+* 4.1 To change the chosen language, change the current directory to the settings folder, open the config.properties file in your chosen text editor (i.e. vim or nano) and change the value of the language property to 'no', 'en_uk' or any other supported language, depending on which language you want the interface to run.
+5. The graphical user interface will now be opened.
 
 ## Software & Technologies
 ### Game engine
