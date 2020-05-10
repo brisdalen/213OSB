@@ -104,7 +104,7 @@ Click [here](https://github.com/brisdalen/213OSB/wiki/List-of-contributors) to s
 ### Game Ideas
 Our future plan is to create other types of games that could be interesting. As we mention we have created some draft of our ideas and we may try to create it.
 
-![Future game ideas 1](https://i.gyazo.com/3a84d546b44d6d76f71558e112bc6545.png)
+![Future game ideas 1](https://i.gyazo.com/471d66d6144282c93bb107cceed83ff9.png)
 
 ### Future improvements
 * Text to Image:
