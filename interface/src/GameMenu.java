@@ -145,6 +145,7 @@ public class GameMenu {
 
     private void addGameLaunchers(JPanel panel) throws Exception {
         //TODO: Make it easier to add a game
+        //TODO: WRITE ABOUT THIS HORRIBLE PROCESS ON THE WIKI
         JButton launchGame1 = new JButton(buttonProperties.getProperty("launchGame") + " 1");
         JButton launchGame2 = new JButton(buttonProperties.getProperty("launchGame") + " 2");
         // Retrieve the operating system name to open the right executable.
@@ -153,18 +154,17 @@ public class GameMenu {
             // Find and open the right file depending on the operating system, when you click the launching button.
             if(os.equals(Constants.WINDOWS)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/windows/Puzzle game.exe"));
-                launchGame2.addActionListener(e -> launchGame(findGamePath() + "Game not exported for windows"));
+                launchGame2.addActionListener(e -> notSupportedError("windows"));
                 printGamePath();
 
             } else if(os.equals(Constants.MAC)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/mac/Puzzle game.app"));
-                //TODO: Change error message to property
-                launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for mac"));
+                launchGame2.addActionListener(e -> notSupportedError("mac"));
                 printGamePath();
 
             } else if(os.equals(Constants.UNIX)) {
                 launchGame1.addActionListener(e -> launchGame(findGamePath() + "/Chewie/Exports/linux/Puzzle game.x86_64"));
-                launchGame2.addActionListener(e -> displayErrorMessage("Game not exported for unix"));
+                launchGame2.addActionListener(e -> notSupportedError("unix"));
                 printGamePath();
 
             }
@@ -178,12 +178,16 @@ public class GameMenu {
         }
     }
 
-    private void displayErrorMessage(String errorMessage) {
+    private void notSupportedError(String osNotSupported) {
+        displayErrorMessage("Game not exported for " + osNotSupported, "Game Not Exported for this OS");
+    }
+
+    private void displayErrorMessage(String errorMessage, String frameTitle) {
         JOptionPane.showMessageDialog(this.frame,
-                //messageProperties.getProperty(errorMessage),
+                //TODO: use properties, like messageProperties.getProperty(errorMessage),
                 errorMessage,
-                //messageProperties.getProperty("osNotExported"),
-                "Game Not Exported for this OS",
+                //and messageProperties.getProperty("osNotExported"),
+                frameTitle,
                 JOptionPane.ERROR_MESSAGE,
                 null);
     }
